@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SupplyKing - Bulk Products & E-commerce Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050508;
+            --bg-secondary: #0c0c12;
+            --fg: #ffffff;
+            --muted: #6b7280;
+            --accent: #00e5a0;
+            --accent-gold: #ffc857;
+            --card: #12121a;
+            --border: #1f1f2e;
+            --glow: rgba(0, 229, 160, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        /* Animated Background */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 229, 160, 0.15) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 200, 87, 0.1) 0%, transparent 70%);
+            bottom: -150px;
+            left: -100px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 229, 160, 0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.95); }
+            75% { transform: translate(-50px, -30px) scale(1.05); }
+        }
+
+        /* Grid Pattern */
+        .grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+        }
+
+        /* Floating Particles Canvas */
+        #particles-canvas {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stagger delays */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+        .delay-6 { transition-delay: 0.6s; }
+
+        /* Navigation */
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+            color: var(--muted);
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--fg);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #00b880 100%);
+            color: var(--bg);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px var(--glow);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #00ffb3 0%, var(--accent) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--glow);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--fg);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: rgba(0, 229, 160, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Cards */
+        .service-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 229, 160, 0.1);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card .icon-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(0, 229, 160, 0.2), rgba(0, 229, 160, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .icon-wrapper {
+            background: linear-gradient(135deg, rgba(0, 229, 160, 0.3), rgba(0, 229, 160, 0.1));
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Product Cards */
+        .product-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 229, 160, 0.15);
+        }
+
+        .product-card .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--card));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card .product-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 229, 160, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-card:hover .product-image::before {
+            opacity: 1;
+        }
+
+        .product-card .discount-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--accent-gold), #ff9500);
+            color: var(--bg);
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+
+        /* Step Cards */
+        .step-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #00b880);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--bg);
+            margin: 0 auto 1.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover .step-number {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px var(--glow);
+        }
+
+        /* Stats Counter */
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Testimonial Cards */
+        .testimonial-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(0, 229, 160, 0.3);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(0, 229, 160, 0.05);
+        }
+
+        .faq-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(0, 229, 160, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            background: var(--accent);
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        /* Contact Form */
+        .form-input {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            color: var(--fg);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 229, 160, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: var(--muted);
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse-wa 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes pulse-wa {
+            0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
+            50% { box-shadow: 0 4px 40px rgba(37, 211, 102, 0.6); }
+        }
+
+        /* Marquee */
+        .marquee-container {
+            overflow: hidden;
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-item {
+            padding: 1.5rem 3rem;
+            white-space: nowrap;
+            font-weight: 600;
+            color: var(--muted);
+            transition: color 0.3s ease;
+        }
+
+        .marquee-item:hover {
+            color: var(--accent);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 4rem 0;
+        }
+
+        /* Glow Text */
+        .glow-text {
+            text-shadow: 0 0 40px var(--glow);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 8, 0.98);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu a {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--fg);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-btn" aria-label="WhatsApp पर संपर्क करें">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" onclick="closeMobileMenu()">Home</a>
+        <a href="#products" onclick="closeMobileMenu()">Products</a>
+        <a href="#services" onclick="closeMobileMenu()">Services</a>
+        <a href="#process" onclick="closeMobileMenu()">Process</a>
+        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+        <button class="btn-primary mt-4" onclick="closeMobileMenu()"><span>Get Started</span></button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[rgba(5,5,8,0.8)] border-b border-[var(--border)]">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent)] to-[#00b880] flex items-center justify-center">
+                    <span class="text-[var(--bg)] font-bold text-xl">S</span>
+                </div>
+                <span class="text-xl font-bold">SupplyKing</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#process" class="nav-link">Process</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#contact" class="btn-primary"><span>Start Business</span></a>
+            </div>
+            
+            <button class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5" onclick="toggleMobileMenu()" aria-label="Menu">
+                <span class="w-6 h-0.5 bg-white transition-all" id="menuLine1"></span>
+                <span class="w-6 h-0.5 bg-white transition-all" id="menuLine2"></span>
+                <span class="w-6 h-0.5 bg-white transition-all" id="menuLine3"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen relative flex items-center pt-20">
+        <div class="hero-bg">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+            <div class="grid-pattern"></div>
+            <canvas id="particles-canvas"></canvas>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="reveal">
+                        <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6">
+                            Bulk Products at Wholesale Prices
+                        </span>
+                    </div>
+                    
+                    <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 reveal delay-1">
+                        Zero se Hero<br>
+                        <span class="text-[var(--accent)] glow-text">E-commerce</span> Tak
+                    </h1>
+                    
+                    <p class="text-xl text-[var(--muted)] mb-8 max-w-lg reveal delay-2">
+                        Bulk products, shipping, ads, aur complete guidance - सब कुछ एक जगह। आप बस sell करो, बाकी सब हम संभालेंगे।
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 reveal delay-3">
+                        <a href="#contact" class="btn-primary"><span>Contact Now</span></a>
+                        <a href="#products" class="btn-secondary">View Products</a>
+                    </div>
+                    
+                    <div class="flex items-center gap-8 mt-12 reveal delay-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-[var(--accent)]">500+</div>
+                            <div class="text-sm text-[var(--muted)]">Products</div>
+                        </div>
+                        <div class="w-px h-12 bg-[var(--border)]"></div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-[var(--accent-gold)]">2000+</div>
+                            <div class="text-sm text-[var(--muted)]">Sellers</div>
+                        </div>
+                        <div class="w-px h-12 bg-[var(--border)]"></div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">Pan India</div>
+                            <div class="text-sm text-[var(--muted)]">Delivery</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative reveal-right">
+                    <div class="relative">
+                        <!-- Floating Product Cards -->
+                        <div class="absolute -top-10 -left-10 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-2xl animate-bounce" style="animation-duration: 3s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent)] to-[#00b880] flex items-center justify-center text-2xl">📦</div>
+                                <div>
+                                    <div class="font-semibold">Bulk Order</div>
+                                    <div class="text-sm text-[var(--accent)]">Min 40% OFF</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute -bottom-5 -right-5 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-2xl animate-bounce" style="animation-duration: 4s; animation-delay: 0.5s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent-gold)] to-[#ff9500] flex items-center justify-center text-2xl">🚚</div>
+                                <div>
+                                    <div class="font-semibold">Free Shipping</div>
+                                    <div class="text-sm text-[var(--accent-gold)]">Door to Door</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Main Hero Image -->
+                        <div class="bg-gradient-to-br from-[var(--card)] to-[var(--bg-secondary)] rounded-3xl p-8 border border-[var(--border)]">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="aspect-square rounded-2xl bg-gradient-to-br from-[rgba(0,229,160,0.2)] to-transparent flex items-center justify-center text-5xl hover:scale-110 transition-transform cursor-pointer">👕</div>
+                                <div class="aspect-square rounded-2xl bg-gradient-to-br from-[rgba(255,200,87,0.2)] to-transparent flex items-center justify-center text-5xl hover:scale-110 transition-transform cursor-pointer">👟</div>
+                                <div class="aspect-square rounded-2xl bg-gradient-to-br from-[rgba(255,100,100,0.2)] to-transparent flex items-center justify-center text-5xl hover:scale-110 transition-transform cursor-pointer">⌚</div>
+                                <div class="aspect-square rounded-2xl bg-gradient-to-br from-[rgba(100,150,255,0.2)] to-transparent flex items-center justify-center text-5xl hover:scale-110 transition-transform cursor-pointer">🎒</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Section -->
+    <div class="marquee-container py-4">
+        <div class="marquee-content">
+            <span class="marquee-item">Electronics</span>
+            <span class="marquee-item">Fashion</span>
+            <span class="marquee-item">Home Decor</span>
+            <span class="marquee-item">Beauty Products</span>
+            <span class="marquee-item">Mobile Accessories</span>
+            <span class="marquee-item">Kids Toys</span>
+            <span class="marquee-item">Kitchen Items</span>
+            <span class="marquee-item">Sports Equipment</span>
+            <span class="marquee-item">Electronics</span>
+            <span class="marquee-item">Fashion</span>
+            <span class="marquee-item">Home Decor</span>
+            <span class="marquee-item">Beauty Products</span>
+            <span class="marquee-item">Mobile Accessories</span>
+            <span class="marquee-item">Kids Toys</span>
+            <span class="marquee-item">Kitchen Items</span>
+            <span class="marquee-item">Sports Equipment</span>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section id="products" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(255,200,87,0.1)] border border-[rgba(255,200,87,0.3)] text-[var(--accent-gold)] text-sm font-medium mb-6 reveal">
+                    Product Catalog
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">Hot Selling Products</h2>
+                <p class="text-xl text-[var(--muted)] max-w-2xl mx-auto reveal delay-2">
+                    500+ products available at wholesale prices. New sellers को बताते हैं क्या sell करना है।
+                </p>
+            </div>
+            
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 reveal delay-3">
+                <button class="category-tab active px-6 py-3 rounded-full bg-[var(--accent)] text-[var(--bg)] font-semibold transition-all" data-category="all">All Products</button>
+                <button class="category-tab px-6 py-3 rounded-full bg-[var(--card)] border border-[var(--border)] font-semibold transition-all hover:border-[var(--accent)]" data-category="electronics">Electronics</button>
+                <button class="category-tab px-6 py-3 rounded-full bg-[var(--card)] border border-[var(--border)] font-semibold transition-all hover:border-[var(--accent)]" data-category="fashion">Fashion</button>
+                <button class="category-tab px-6 py-3 rounded-full bg-[var(--card)] border border-[var(--border)] font-semibold transition-all hover:border-[var(--accent)]" data-category="home">Home</button>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="productsGrid">
+                <!-- Products will be rendered by JS -->
+            </div>
+            
+            <div class="text-center mt-12 reveal">
+                <a href="#contact" class="btn-primary"><span>View Full Catalog</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Zero to Hero Section -->
+    <section class="py-24 relative bg-gradient-to-b from-[var(--bg)] via-[var(--bg-secondary)] to-[var(--bg)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal-left">
+                    <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6">
+                        For New Sellers
+                    </span>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        Zero se Hero<br>
+                        <span class="text-[var(--accent-gold)]">Program</span>
+                    </h2>
+                    <p class="text-xl text-[var(--muted)] mb-8">
+                        E-commerce में entry करनी है पर पता नहीं क्या sell करें? हम बताएंगे। Product selection से लेकर profit margin तक, सब कुछ गाइड करेंगे।
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 bg-[var(--card)] rounded-xl border border-[var(--border)] hover:border-[var(--accent)] transition-all">
+                            <div class="w-10 h-10 rounded-lg bg-[rgba(0,229,160,0.2)] flex items-center justify-center shrink-0">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                                    <path d="M9 11l3 3L22 4"></path>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Product Research</h4>
+                                <p class="text-[var(--muted)] text-sm">Trending products जो actually sell होते हैं</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-4 bg-[var(--card)] rounded-xl border border-[var(--border)] hover:border-[var(--accent)] transition-all">
+                            <div class="w-10 h-10 rounded-lg bg-[rgba(255,200,87,0.2)] flex items-center justify-center shrink-0">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Profit Margin Guide</h4>
+                                <p class="text-[var(--muted)] text-sm">कहाँ से buy करें, कितने में sell करें</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-4 bg-[var(--card)] rounded-xl border border-[var(--border)] hover:border-[var(--accent)] transition-all">
+                            <div class="w-10 h-10 rounded-lg bg-[rgba(100,150,255,0.2)] flex items-center justify-center shrink-0">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6496ff" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Platform Selection</h4>
+                                <p class="text-[var(--muted)] text-sm">Amazon, Flipkart, Meesho - कौन सा best for you</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-right">
+                    <div class="relative">
+                        <div class="bg-[var(--card)] border border-[var(--border)] rounded-3xl p-8 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[var(--accent)] to-transparent opacity-20 rounded-bl-full"></div>
+                            
+                            <h3 class="text-2xl font-bold mb-6">What You Get</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-[rgba(0,229,160,0.2)] flex items-center justify-center">
+                                        <span class="text-xl">1</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">Winning Products List</div>
+                                        <div class="text-sm text-[var(--muted)]">50+ trending products with margins</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-[rgba(255,200,87,0.2)] flex items-center justify-center">
+                                        <span class="text-xl">2</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">Supplier Contacts</div>
+                                        <div class="text-sm text-[var(--muted)]">Direct manufacturer connections</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-[rgba(100,150,255,0.2)] flex items-center justify-center">
+                                        <span class="text-xl">3</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">1-on-1 Mentorship</div>
+                                        <div class="text-sm text-[var(--muted)]">Personal guidance calls</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-[rgba(255,100,150,0.2)] flex items-center justify-center">
+                                        <span class="text-xl">4</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">Ad Templates</div>
+                                        <div class="text-sm text-[var(--muted)]">Ready-to-use marketing creatives</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <a href="#contact" class="btn-primary w-full mt-8 block text-center"><span>Join Program</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6 reveal">
+                    Our Services
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">End-to-End Solutions</h2>
+                <p class="text-xl text-[var(--muted)] max-w-2xl mx-auto reveal delay-2">
+                    Product से लेकर delivery तक, हर step पर हम साथ हैं
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="service-card reveal delay-1">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Bulk Products</h3>
+                    <p class="text-[var(--muted)] mb-4">500+ products at wholesale prices. Fashion, electronics, home decor - सब कुछ available है।</p>
+                    <div class="text-[var(--accent)] font-semibold">Min 40% Margin</div>
+                </div>
+                
+                <div class="service-card reveal delay-2">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Door to Door Shipping</h3>
+                    <p class="text-[var(--muted)] mb-4">Order base shipping - जितना order उतनी shipping। Pan India delivery available।</p>
+                    <div class="text-[var(--accent-gold)] font-semibold">Starting Rs 30/order</div>
+                </div>
+                
+                <div class="service-card reveal delay-3">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Ads Management</h3>
+                    <p class="text-[var(--muted)] mb-4">Amazon Ads, Flipkart Ads, Facebook Ads - हम चला देंगे। ROI focused campaigns।</p>
+                    <div class="text-[var(--accent)] font-semibold">Performance Based</div>
+                </div>
+                
+                <div class="service-card reveal delay-4">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">GST Invoice</h3>
+                    <p class="text-[var(--muted)] mb-4">Proper GST invoice मिलेगा। Sell करने में कोई problem नहीं।</p>
+                    <div class="text-[var(--accent-gold)] font-semibold">All Compliant</div>
+                </div>
+                
+                <div class="service-card reveal delay-5">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Product Guidance</h3>
+                    <p class="text-[var(--muted)] mb-4">नया seller हो? क्या sell करना है, कैसे sell करना है - सब बताएंगे।</p>
+                    <div class="text-[var(--accent)] font-semibold">Free Consultation</div>
+                </div>
+                
+                <div class="service-card reveal delay-6">
+                    <div class="icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">24/7 Support</h3>
+                    <p class="text-[var(--muted)] mb-4">कोई भी problem? WhatsApp पर message करो, तुरंत reply मिलेगा।</p>
+                    <div class="text-[var(--accent-gold)] font-semibold">Always Available</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-24 relative bg-gradient-to-b from-[var(--bg)] via-[var(--bg-secondary)] to-[var(--bg)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(255,200,87,0.1)] border border-[rgba(255,200,87,0.3)] text-[var(--accent-gold)] text-sm font-medium mb-6 reveal">
+                    How It Works
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">Simple Process</h2>
+                <p class="text-xl text-[var(--muted)] max-w-2xl mx-auto reveal delay-2">
+                    4 easy steps में शुरू करो अपना e-commerce business
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="step-card reveal delay-1">
+                    <div class="step-number">1</div>
+                    <h3 class="text-xl font-bold mb-3">Contact Us</h3>
+                    <p class="text-[var(--muted)]">WhatsApp या form से contact करो। बताओ क्या चाहिए।</p>
+                </div>
+                
+                <div class="step-card reveal delay-2">
+                    <div class="step-number">2</div>
+                    <h3 class="text-xl font-bold mb-3">Select Products</h3>
+                    <p class="text-[var(--muted)]">Catalog देखो, products choose करो। Guidance चाहिए तो बोलो।</p>
+                </div>
+                
+                <div class="step-card reveal delay-3">
+                    <div class="step-number">3</div>
+                    <h3 class="text-xl font-bold mb-3">Place Order</h3>
+                    <p class="text-[var(--muted)]">Bulk order करो। Shipping details दो। Payment करो।</p>
+                </div>
+                
+                <div class="step-card reveal delay-4">
+                    <div class="step-number">4</div>
+                    <h3 class="text-xl font-bold mb-3">Start Selling</h3>
+                    <p class="text-[var(--muted)]">Products receive करो और sell करना शुरू करो।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="bg-gradient-to-r from-[var(--card)] to-[var(--bg-secondary)] rounded-3xl border border-[var(--border)] p-12">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="stat-item reveal delay-1">
+                        <div class="stat-number" data-target="500">0</div>
+                        <div class="text-lg text-[var(--muted)] mt-2">Products Available</div>
+                    </div>
+                    <div class="stat-item reveal delay-2">
+                        <div class="stat-number" data-target="2000">0</div>
+                        <div class="text-lg text-[var(--muted)] mt-2">Active Sellers</div>
+                    </div>
+                    <div class="stat-item reveal delay-3">
+                        <div class="stat-number" data-target="50000">0</div>
+                        <div class="text-lg text-[var(--muted)] mt-2">Orders Shipped</div>
+                    </div>
+                    <div class="stat-item reveal delay-4">
+                        <div class="stat-number" data-target="28">0</div>
+                        <div class="text-lg text-[var(--muted)] mt-2">States Covered</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 relative bg-gradient-to-b from-[var(--bg)] via-[var(--bg-secondary)] to-[var(--bg)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6 reveal">
+                    Success Stories
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">Happy Sellers</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6" id="testimonialsGrid">
+                <!-- Testimonials will be rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 relative">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(255,200,87,0.1)] border border-[rgba(255,200,87,0.3)] text-[var(--accent-gold)] text-sm font-medium mb-6 reveal">
+                    FAQ
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">Common Questions</h2>
+            </div>
+            
+            <div class="space-y-4" id="faqContainer">
+                <!-- FAQ items will be rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative bg-gradient-to-b from-[var(--bg)] via-[var(--bg-secondary)] to-[var(--bg)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal-left">
+                    <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6">
+                        Get In Touch
+                    </span>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        Ready to Start?
+                    </h2>
+                    <p class="text-xl text-[var(--muted)] mb-8">
+                        अभी contact करो और अपना e-commerce journey शुरू करो। Zero investment से लेकर full setup तक, हम साथ हैं।
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-xl bg-[rgba(0,229,160,0.2)] flex items-center justify-center">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--accent)">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-[var(--muted)] text-sm">Phone / WhatsApp</div>
+                                <div class="text-xl font-semibold">+91 98765 43210</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-xl bg-[rgba(255,200,87,0.2)] flex items-center justify-center">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--accent-gold)">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6" fill="none" stroke="var(--accent-gold)" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-[var(--muted)] text-sm">Email</div>
+                                <div class="text-xl font-semibold">contact@supplyking.com</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-xl bg-[rgba(100,150,255,0.2)] flex items-center justify-center">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#6496ff">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-[var(--muted)] text-sm">Location</div>
+                                <div class="text-xl font-semibold">Delhi, India</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-right">
+                    <form class="bg-[var(--card)] border border-[var(--border)] rounded-3xl p-8" id="contactForm">
+                        <h3 class="text-2xl font-bold mb-6">Send Message</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <input type="text" placeholder="Your Name" class="form-input" required>
+                            </div>
+                            <div>
+                                <input type="tel" placeholder="Phone Number" class="form-input" required>
+                            </div>
+                            <div>
+                                <input type="email" placeholder="Email (Optional)" class="form-input">
+                            </div>
+                            <div>
+                                <select class="form-input" required>
+                                    <option value="">Select Interest</option>
+                                    <option value="bulk">Bulk Products</option>
+                                    <option value="shipping">Shipping Service</option>
+                                    <option value="ads">Ads Management</option>
+                                    <option value="guidance">Product Guidance</option>
+                                    <option value="all">All Services</option>
+                                </select>
+                            </div>
+                            <div>
+                                <textarea placeholder="Your Message" rows="4" class="form-input" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary w-full"><span>Send Message</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-[var(--border)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent)] to-[#00b880] flex items-center justify-center">
+                            <span class="text-[var(--bg)] font-bold text-xl">S</span>
+                        </div>
+                        <span class="text-xl font-bold">SupplyKing</span>
+                    </div>
+                    <p class="text-[var(--muted)]">Zero se Hero tak - Complete e-commerce solutions for new sellers.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-[var(--muted)]">
+                        <li><a href="#home" class="hover:text-[var(--accent)] transition-colors">Home</a></li>
+                        <li><a href="#products" class="hover:text-[var(--accent)] transition-colors">Products</a></li>
+                        <li><a href="#services" class="hover:text-[var(--accent)] transition-colors">Services</a></li>
+                        <li><a href="#contact" class="hover:text-[var(--accent)] transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Services</h4>
+                    <ul class="space-y-2 text-[var(--muted)]">
+                        <li>Bulk Products</li>
+                        <li>Door to Door Shipping</li>
+                        <li>Ads Management</li>
+                        <li>Product Guidance</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-xl bg-[var(--card)] border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-all" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--muted)">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-[var(--card)] border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-all" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--muted)">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-[var(--card)] border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-all" aria-label="YouTube">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--muted)">
+                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-[var(--border)] pt-8 text-center text-[var(--muted)]">
+                <p>&copy; 2024 SupplyKing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data
+        const products = [
+            { id: 1, name: 'Smart Watch Pro', category: 'electronics', price: '299', mrp: '999', discount: '70%', emoji: '⌚' },
+            { id: 2, name: 'Wireless Earbuds', category: 'electronics', price: '199', mrp: '599', discount: '67%', emoji: '🎧' },
+            { id: 3, name: 'Men Casual T-Shirt', category: 'fashion', price: '149', mrp: '399', discount: '63%', emoji: '👕' },
+            { id: 4, name: 'Women Kurti Set', category: 'fashion', price: '299', mrp: '799', discount: '63%', emoji: '👗' },
+            { id: 5, name: 'LED Table Lamp', category: 'home', price: '249', mrp: '699', discount: '64%', emoji: '💡' },
+            { id: 6, name: 'Bluetooth Speaker', category: 'electronics', price: '349', mrp: '999', discount: '65%', emoji: '🔊' },
+            { id: 7, name: 'Kids Toy Set', category: 'home', price: '199', mrp: '499', discount: '60%', emoji: '🧸' },
+            { id: 8, name: 'Sports Shoes', category: 'fashion', price: '449', mrp: '1299', discount: '65%', emoji: '👟' },
+        ];
+
+        const testimonials = [
+            { name: 'Rahul Sharma', location: 'Mumbai', text: 'Zero se start kiya, ab monthly 2 lakh revenue। Products quality बहुत अच्छी है।', rating: 5 },
+            { name: 'Priya Patel', location: 'Ahmedabad', text: 'Shipping service बहुत smooth है। Customer को next day delivery मिल जाती है।', rating: 5 },
+            { name: 'Amit Kumar', location: 'Delhi', text: 'Ads management ने मेरे sales 3x कर दिए। ROI based work करते हैं।', rating: 5 },
+        ];
+
+        const faqs = [
+            { question: 'Minimum order quantity कितनी है?', answer: 'Different products के लिए different MOQ है। Generally 10-50 pieces से start होता है। WhatsApp पर पूछ सकते हो specific product के लिए।' },
+            { question: 'Shipping कितने दिनों में होती है?', answer: 'Metro cities में 2-3 days, other cities में 4-5 days। Express shipping भी available है additional cost पर।' },
+            { question: 'Payment mode क्या है?', answer: 'Bank transfer, UPI, Cash on pickup available है। Bulk orders के लिए partial advance लेते हैं।' },
+            { question: 'GST invoice मिलेगा?', answer: 'हाँ, proper tax invoice मिलेगा। Business के लिए आप input credit भी claim कर सकते हो।' },
+            { question: 'Product guidance free है?', answer: 'हाँ, अगर आप हमसे products ले रहे हो तो guidance completely free है।' },
+        ];
+
+        // Render Products
+        function renderProducts(category = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+            
+            grid.innerHTML = filtered.map((product, index) => `
+                <div class="product-card reveal delay-${(index % 4) + 1}">
+                    <div class="product-image">
+                        <span class="discount-badge">${product.discount} OFF</span>
+                        <span style="filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));">${product.emoji}</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-2">${product.name}</h3>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl font-bold text-[var(--accent)]">Rs ${product.price}</span>
+                            <span class="text-[var(--muted)] line-through">Rs ${product.mrp}</span>
+                        </div>
+                        <a href="#contact" class="btn-secondary w-full text-center block text-sm py-3">Get Quote</a>
+                    </div>
+                </div>
+            `).join('');
+            
+            observeElements();
+        }
+
+        // Render Testimonials
+        function renderTestimonials() {
+            const grid = document.getElementById('testimonialsGrid');
+            grid.innerHTML = testimonials.map((t, index) => `
+                <div class="testimonial-card reveal delay-${index + 1}">
+                    <div class="flex gap-1 mb-4">
+                        ${Array(t.rating).fill('<svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>').join('')}
+                    </div>
+                    <p class="text-[var(--muted)] mb-4">"${t.text}"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--accent)] to-[var(--accent-gold)] flex items-center justify-center font-bold text-[var(--bg)]">
+                            ${t.name[0]}
+                        </div>
+                        <div>
+                            <div class="font-semibold">${t.name}</div>
+                            <div class="text-sm text-[var(--muted)]">${t.location}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render FAQ
+        function renderFAQ() {
+            const container = document.getElementById('faqContainer');
+            container.innerHTML = faqs.map((faq, index) => `
+                <div class="faq-item reveal delay-${(index % 3) + 1}">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span class="font-semibold">${faq.question}</span>
+                        <div class="faq-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-[var(--muted)]">${faq.answer}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle FAQ
+        function toggleFAQ(element) {
+            const item = element.parentElement;
+            item.classList.toggle('active');
+        }
+
+        // Category Tabs
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.category-tab').forEach(t => {
+                    t.classList.remove('active', 'bg-[var(--accent)]', 'text-[var(--bg)]');
+                    t.classList.add('bg-[var(--card)]');
+                });
+                this.classList.add('active', 'bg-[var(--accent)]', 'text-[var(--bg)]');
+                this.classList.remove('bg-[var(--card)]');
+                renderProducts(this.dataset.category);
+            });
+        });
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.remove('active');
+        }
+
+        // Scroll Reveal
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.dataset.target);
+                        let current = 0;
+                        const increment = target / 60;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                entry.target.textContent = target.toLocaleString() + '+';
+                                clearInterval(timer);
+                            } else {
+                                entry.target.textContent = Math.floor(current).toLocaleString();
+                            }
+                        }, 30);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // Particles
+        function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resize() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const particles = [];
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 0.5,
+                    speedY: (Math.random() - 0.5) * 0.5,
+                    opacity: Math.random() * 0.5 + 0.2
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(p => {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.y > canvas.height) p.y = 0;
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 229, 160, ${p.opacity})`;
+                    ctx.fill();
+                });
+
+                // Draw connections
+                particles.forEach((p1, i) => {
+                    particles.slice(i + 1).forEach(p2 => {
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `rgba(0, 229, 160, ${0.1 * (1 - distance / 150)})`;
+                            ctx.stroke();
+                        }
+                    });
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // Form Submit
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you! हम जल्द ही आपसे contact करेंगे।');
+            this.reset();
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            renderTestimonials();
+            renderFAQ();
+            observeElements();
+            animateCounters();
+            initParticles();
+        });
+    </script>
+</body>
+</html>
