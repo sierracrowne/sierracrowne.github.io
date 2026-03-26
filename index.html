@@ -1,1530 +1,1305 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SupplyKing - Bulk Products & E-commerce Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #050508;
-            --bg-secondary: #0c0c12;
-            --fg: #ffffff;
-            --muted: #6b7280;
-            --accent: #00e5a0;
-            --accent-gold: #ffc857;
-            --card: #12121a;
-            --border: #1f1f2e;
-            --glow: rgba(0, 229, 160, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg);
-            color: var(--fg);
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 4px;
-        }
-
-        /* Animated Background */
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .gradient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .orb-1 {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0, 229, 160, 0.15) 0%, transparent 70%);
-            top: -200px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 200, 87, 0.1) 0%, transparent 70%);
-            bottom: -150px;
-            left: -100px;
-            animation-delay: -7s;
-        }
-
-        .orb-3 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0, 229, 160, 0.1) 0%, transparent 70%);
-            top: 50%;
-            left: 50%;
-            animation-delay: -14s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(50px, -50px) scale(1.1); }
-            50% { transform: translate(-30px, 30px) scale(0.95); }
-            75% { transform: translate(-50px, -30px) scale(1.05); }
-        }
-
-        /* Grid Pattern */
-        .grid-pattern {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
-        }
-
-        /* Floating Particles Canvas */
-        #particles-canvas {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-        }
-
-        /* Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-left.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-right.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .reveal-scale {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-scale.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Stagger delays */
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
-        .delay-4 { transition-delay: 0.4s; }
-        .delay-5 { transition-delay: 0.5s; }
-        .delay-6 { transition-delay: 0.6s; }
-
-        /* Navigation */
-        .nav-link {
-            position: relative;
-            padding: 0.5rem 0;
-            color: var(--muted);
-            transition: color 0.3s ease;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--fg);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Buttons */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent) 0%, #00b880 100%);
-            color: var(--bg);
-            font-weight: 600;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px var(--glow);
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #00ffb3 0%, var(--accent) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px var(--glow);
-        }
-
-        .btn-primary:hover::before {
-            opacity: 1;
-        }
-
-        .btn-primary span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--border);
-            color: var(--fg);
-            font-weight: 600;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent);
-            background: rgba(0, 229, 160, 0.1);
-            transform: translateY(-3px);
-        }
-
-        /* Cards */
-        .service-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-gold));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(0, 229, 160, 0.1);
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-card .icon-wrapper {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, rgba(0, 229, 160, 0.2), rgba(0, 229, 160, 0.05));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover .icon-wrapper {
-            background: linear-gradient(135deg, rgba(0, 229, 160, 0.3), rgba(0, 229, 160, 0.1));
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        /* Product Cards */
-        .product-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(0, 229, 160, 0.15);
-        }
-
-        .product-card .product-image {
-            height: 200px;
-            background: linear-gradient(135deg, var(--bg-secondary), var(--card));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card .product-image::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(0, 229, 160, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .product-card:hover .product-image::before {
-            opacity: 1;
-        }
-
-        .product-card .discount-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: linear-gradient(135deg, var(--accent-gold), #ff9500);
-            color: var(--bg);
-            font-weight: 700;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
-        }
-
-        /* Step Cards */
-        .step-card {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), #00b880);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--bg);
-            margin: 0 auto 1.5rem;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .step-card:hover .step-number {
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px var(--glow);
-        }
-
-        /* Stats Counter */
-        .stat-item {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Testimonial Cards */
-        .testimonial-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.4s ease;
-        }
-
-        .testimonial-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        /* FAQ Accordion */
-        .faq-item {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-            border-color: rgba(0, 229, 160, 0.3);
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .faq-question:hover {
-            background: rgba(0, 229, 160, 0.05);
-        }
-
-        .faq-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: rgba(0, 229, 160, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item.active .faq-icon {
-            background: var(--accent);
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 300px;
-            padding: 0 1.5rem 1.5rem;
-        }
-
-        /* Contact Form */
-        .form-input {
-            width: 100%;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            color: var(--fg);
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(0, 229, 160, 0.2);
-        }
-
-        .form-input::placeholder {
-            color: var(--muted);
-        }
-
-        /* Floating WhatsApp Button */
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            animation: pulse-wa 2s infinite;
-        }
-
-        .whatsapp-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
-        }
-
-        @keyframes pulse-wa {
-            0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
-            50% { box-shadow: 0 4px 40px rgba(37, 211, 102, 0.6); }
-        }
-
-        /* Marquee */
-        .marquee-container {
-            overflow: hidden;
-            background: var(--card);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .marquee-content {
-            display: flex;
-            animation: marquee 30s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .marquee-item {
-            padding: 1.5rem 3rem;
-            white-space: nowrap;
-            font-weight: 600;
-            color: var(--muted);
-            transition: color 0.3s ease;
-        }
-
-        .marquee-item:hover {
-            color: var(--accent);
-        }
-
-        /* Section Divider */
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border), transparent);
-            margin: 4rem 0;
-        }
-
-        /* Glow Text */
-        .glow-text {
-            text-shadow: 0 0 40px var(--glow);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            position: fixed;
-            inset: 0;
-            background: rgba(5, 5, 8, 0.98);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .mobile-menu.active {
-            transform: translateX(0);
-        }
-
-        .mobile-menu a {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--fg);
-            transition: color 0.3s ease;
-        }
-
-        .mobile-menu a:hover {
-            color: var(--accent);
-        }
-
-        /* Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .stat-number {
-                font-size: 2.5rem;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem !important;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sierra Crown LLC — Brand Development & E-commerce Growth</title>
+  <meta name="description" content="Sierra Crown LLC helps brands launch, scale, and grow with product sourcing, digital marketing, e-commerce systems, and development support. California, USA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:          #06080e;
+      --bg2:         #0b0e18;
+      --surface:     #101422;
+      --surface2:    #161c2e;
+      --surface3:    #1c2338;
+      --border:      rgba(255,255,255,0.09);
+      --border-gold: rgba(212,175,95,0.35);
+      --border-teal: rgba(64,206,196,0.25);
+      --text:        #f8f5ef;
+      --text2:       #d8dce8;
+      --text3:       #a8b0c4;
+      --text4:       #7a8499;
+      --gold:        #d4af5f;
+      --gold2:       #e8c87a;
+      --gold3:       #f5dfa0;
+      --gold-dim:    rgba(212,175,95,0.12);
+      --teal:        #40cec4;
+      --teal2:       #6dddd5;
+      --teal-dim:    rgba(64,206,196,0.10);
+      --radius-xs:   6px;
+      --radius-sm:   12px;
+      --radius-md:   20px;
+      --radius-lg:   32px;
+      --radius-xl:   48px;
+      --shadow-sm:   0 4px 24px rgba(0,0,0,0.35);
+      --shadow-md:   0 12px 44px rgba(0,0,0,0.45);
+      --shadow-lg:   0 24px 80px rgba(0,0,0,0.55);
+      --glow-gold:   0 0 60px rgba(212,175,95,0.12);
+      --glow-teal:   0 0 60px rgba(64,206,196,0.10);
+      --ease:        cubic-bezier(0.16, 1, 0.3, 1);
+      --dur:         0.42s;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,h2,h3,h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(var(--gold), var(--teal)); border-radius: 99px; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 36px; }
+    @media (max-width: 768px) { .container { padding: 0 20px; } }
+
+    /* ══ NAV ══ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 22px 0;
+      transition: padding var(--dur) var(--ease), background var(--dur) var(--ease);
+    }
+    .nav.scrolled {
+      padding: 14px 0;
+      background: rgba(6,8,14,0.92);
+      backdrop-filter: blur(28px) saturate(1.4);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+    .nav-logo { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .nav-logo-mark {
+      width: 46px; height: 46px; border-radius: 13px;
+      background: linear-gradient(140deg, var(--gold) 0%, var(--gold2) 60%, var(--gold3) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800; color: #06080e;
+      box-shadow: 0 8px 28px rgba(212,175,95,0.35), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .nav-logo-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: 0.01em; }
+    .nav-logo-sub { font-size: 11px; color: var(--text3); margin-top: 2px; letter-spacing: 0.07em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 34px; }
+    .nav-link {
+      font-size: 13.5px; font-weight: 500; color: var(--text2);
+      letter-spacing: 0.05em; text-transform: uppercase; position: relative; transition: color 0.25s;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -5px; left: 0; right: 100%; height: 1.5px;
+      background: linear-gradient(90deg, var(--gold), var(--teal)); transition: right 0.32s var(--ease);
+    }
+    .nav-link:hover { color: var(--gold2); }
+    .nav-link:hover::after { right: 0; }
+    .nav-cta {
+      padding: 11px 24px; border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #06080e; font-size: 13px; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: var(--dur) var(--ease); box-shadow: 0 6px 22px rgba(212,175,95,0.28);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(212,175,95,0.38); }
+    .hamburger {
+      display: none; width: 44px; height: 44px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--surface);
+      align-items: center; justify-content: center; flex-direction: column; gap: 5px;
+    }
+    .hamburger span { width: 20px; height: 1.5px; background: var(--text2); display: block; }
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 90; background: rgba(6,8,14,0.98);
+      backdrop-filter: blur(24px); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 28px;
+      transform: translateY(-100%); opacity: 0; transition: var(--dur) var(--ease);
+    }
+    .mobile-menu.open { transform: translateY(0); opacity: 1; }
+    .mobile-menu .nav-link {
+      font-size: 30px; text-transform: none; font-family: 'Playfair Display', serif;
+      letter-spacing: 0; color: var(--text);
+    }
+    .mobile-close {
+      position: absolute; top: 24px; right: 24px; width: 44px; height: 44px;
+      border-radius: 10px; border: 1px solid var(--border); background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--text2); cursor: pointer;
+    }
+    @media (max-width: 960px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ══ HERO ══ */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; padding: 150px 0 100px; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 90% 70% at 65% 35%, rgba(212,175,95,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 55% at 5% 75%, rgba(64,206,196,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 55% 45% at 95% 90%, rgba(212,175,95,0.05) 0%, transparent 50%);
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse at 55% 40%, black 20%, transparent 68%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 18px; border: 1px solid rgba(212,175,95,0.3); border-radius: 999px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold2); background: rgba(212,175,95,0.08); margin-bottom: 32px;
+    }
+    .eyebrow-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--gold2);
+      animation: pulse 2.2s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.35;transform:scale(0.85)} }
+    .hero-title {
+      font-size: clamp(3.4rem, 6.5vw, 6rem); color: var(--text);
+      line-height: 0.96; margin-bottom: 28px;
+    }
+    .hero-title em {
+      font-style: italic;
+      background: linear-gradient(125deg, var(--gold2) 0%, var(--gold3) 40%, var(--teal2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-desc { font-size: 18px; font-weight: 400; color: var(--text2); line-height: 1.85; max-width: 480px; margin-bottom: 44px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 60px; }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px;
+      border-radius: var(--radius-sm); background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
+      color: #06080e; font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+      transition: var(--dur) var(--ease); box-shadow: 0 10px 34px rgba(212,175,95,0.28);
+    }
+    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 18px 48px rgba(212,175,95,0.40); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px;
+      border-radius: var(--radius-sm); border: 1.5px solid var(--border-gold);
+      color: var(--gold2); font-size: 14px; font-weight: 600; letter-spacing: 0.04em;
+      transition: var(--dur) var(--ease); background: rgba(212,175,95,0.05);
+    }
+    .btn-outline:hover { background: rgba(212,175,95,0.12); border-color: var(--gold2); transform: translateY(-3px); }
+    .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+    .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 800; color: var(--text); line-height: 1; }
+    .hero-stat-num span { color: var(--gold2); }
+    .hero-stat-label { font-size: 12px; color: var(--text3); margin-top: 5px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 500; }
+    .hero-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .hero-card {
+      border-radius: var(--radius-md); border: 1px solid var(--border);
+      background: var(--surface); padding: 28px 22px; text-align: center;
+      transition: var(--dur) var(--ease); position: relative; overflow: hidden;
+    }
+    .hero-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at top, rgba(212,175,95,0.07), transparent 60%);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .hero-card:hover::before { opacity: 1; }
+    .hero-card:hover { border-color: var(--border-gold); transform: translateY(-7px); box-shadow: var(--shadow-md); }
+    .hero-card-icon { font-size: 42px; margin-bottom: 14px; display: block; }
+    .hero-card-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .hero-card-sub { font-size: 13px; color: var(--text2); line-height: 1.55; }
+    .hero-info-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+    .hero-info-card { border-radius: var(--radius-sm); border: 1px solid var(--border); background: rgba(255,255,255,0.03); padding: 14px 16px; }
+    .hero-info-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; }
+    .hero-info-val { font-size: 14.5px; font-weight: 700; color: var(--text); margin-top: 5px; }
+    @media (max-width: 960px) {
+      .hero-content { grid-template-columns: 1fr; gap: 54px; }
+      .hero-desc { max-width: 100%; }
+    }
+
+    /* ══ TICKER ══ */
+    .ticker {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--surface); padding: 18px 0; overflow: hidden; position: relative;
+    }
+    .ticker::before, .ticker::after { content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; }
+    .ticker::before { left: 0; background: linear-gradient(90deg, var(--surface), transparent); }
+    .ticker::after { right: 0; background: linear-gradient(-90deg, var(--surface), transparent); }
+    .ticker-track { display: flex; width: max-content; animation: ticker 32s linear infinite; }
+    .ticker-item {
+      display: flex; align-items: center; gap: 16px; padding: 0 32px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase;
+      color: var(--text3); white-space: nowrap;
+    }
+    .ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ══ SECTION SHARED ══ */
+    section { position: relative; z-index: 1; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold2); margin-bottom: 18px;
+    }
+    .section-label::before { content: ''; width: 30px; height: 1.5px; background: var(--gold); }
+    .section-title { font-size: clamp(2.6rem, 5vw, 4.2rem); color: var(--text); margin-bottom: 20px; }
+    .section-title em { font-style: italic; color: var(--gold2); }
+    .section-desc { font-size: 17px; color: var(--text2); line-height: 1.85; max-width: 580px; }
+
+    /* ══ PRODUCTS ══ */
+    .products { padding: 130px 0; }
+    .products-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 56px; flex-wrap: wrap; }
+    .category-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cat-btn {
+      padding: 10px 20px; border-radius: 999px; font-size: 13px; font-weight: 600;
+      border: 1px solid var(--border); color: var(--text2); background: var(--surface);
+      transition: var(--dur) var(--ease);
+    }
+    .cat-btn:hover { border-color: var(--border-gold); color: var(--gold2); }
+    .cat-btn.active { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #06080e; border-color: transparent; box-shadow: 0 6px 22px rgba(212,175,95,0.22); }
+    .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    @media (max-width: 1100px) { .products-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 600px) { .products-grid { grid-template-columns: 1fr; } }
+    .product-card {
+      border-radius: var(--radius-md); border: 1px solid var(--border);
+      background: var(--surface); overflow: hidden; transition: var(--dur) var(--ease); cursor: pointer;
+    }
+    .product-card:hover { border-color: var(--border-gold); transform: translateY(-9px); box-shadow: var(--shadow-lg), var(--glow-gold); }
+    .product-visual {
+      height: 200px; display: flex; align-items: center; justify-content: center;
+      position: relative;
+      background: radial-gradient(circle at top, rgba(212,175,95,0.09), transparent 60%), var(--surface2);
+      border-bottom: 1px solid var(--border);
+    }
+    .product-badge {
+      position: absolute; top: 14px; right: 14px; padding: 6px 12px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #06080e;
+    }
+    .product-body { padding: 24px; }
+    .product-name { font-size: 15.5px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+    .product-price { display: flex; align-items: baseline; gap: 10px; }
+    .product-price-main { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 800; color: var(--gold2); }
+    .product-price-mrp { font-size: 13px; color: var(--text4); text-decoration: line-through; }
+    .product-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; margin-top: 16px; padding: 13px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border-gold); color: var(--gold2);
+      font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      transition: var(--dur) var(--ease);
+    }
+    .product-btn:hover { background: var(--gold); color: #06080e; border-color: var(--gold); }
+
+    /* ══ VALUE ══ */
+    .value-section {
+      padding: 110px 0;
+      background: radial-gradient(ellipse 65% 50% at 0% 50%, rgba(64,206,196,0.05), transparent 55%), var(--bg2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+    @media (max-width: 900px) { .value-grid { grid-template-columns: 1fr; gap: 54px; } }
+    .value-features { display: flex; flex-direction: column; gap: 14px; margin-top: 38px; }
+    .value-feat {
+      display: flex; align-items: flex-start; gap: 16px; padding: 20px 24px;
+      border-radius: var(--radius-md); border: 1px solid var(--border);
+      background: var(--surface); transition: var(--dur) var(--ease);
+    }
+    .value-feat:hover { border-color: var(--border-gold); transform: translateX(7px); }
+    .value-feat-icon {
+      width: 46px; height: 46px; flex-shrink: 0; border-radius: 13px;
+      background: linear-gradient(135deg, rgba(212,175,95,0.15), rgba(64,206,196,0.10));
+      border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .value-feat-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+    .value-feat-desc { font-size: 14px; color: var(--text2); line-height: 1.7; }
+    .steps-card { border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--surface); padding: 44px; box-shadow: var(--shadow-lg); }
+    .steps-card h3 { font-size: 2.1rem; margin-bottom: 30px; color: var(--text); }
+    .step-row { display: flex; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .step-row:last-of-type { border-bottom: none; }
+    .step-num {
+      width: 46px; height: 46px; flex-shrink: 0; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 800; color: #06080e;
+      box-shadow: 0 6px 18px rgba(212,175,95,0.22);
+    }
+    .step-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    .step-desc { font-size: 14px; color: var(--text2); margin-top: 4px; line-height: 1.6; }
+
+    /* ══ SERVICES ══ */
+    .services { padding: 130px 0; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 64px; }
+    @media (max-width: 960px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
+    .service-card {
+      border-radius: var(--radius-md); border: 1px solid var(--border);
+      background: var(--surface); padding: 36px 32px;
+      transition: var(--dur) var(--ease); position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2.5px;
+      background: linear-gradient(90deg, var(--gold), var(--teal2));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease);
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-card:hover { border-color: var(--border-gold); transform: translateY(-9px); box-shadow: var(--shadow-lg); }
+    .service-icon {
+      width: 58px; height: 58px; border-radius: 16px;
+      background: linear-gradient(135deg, rgba(212,175,95,0.13), rgba(64,206,196,0.09));
+      border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+      font-size: 28px; margin-bottom: 22px;
+    }
+    .service-title { font-size: 1.35rem; color: var(--text); margin-bottom: 14px; }
+    .service-desc { font-size: 14.5px; color: var(--text2); line-height: 1.8; }
+    .service-tag { display: inline-block; margin-top: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold2); }
+
+    /* ══ PROCESS ══ */
+    .process { padding: 110px 0; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px; margin-top: 68px; position: relative; }
+    .process-steps::before {
+      content: ''; position: absolute; top: 40px; left: 12%; right: 12%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-gold), transparent);
+    }
+    @media (max-width: 900px) { .process-steps { grid-template-columns: repeat(2,1fr); } .process-steps::before { display: none; } }
+    @media (max-width: 500px) { .process-steps { grid-template-columns: 1fr; } }
+    .process-step { text-align: center; }
+    .process-num {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--surface); border: 1.5px solid var(--border-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800;
+      color: var(--gold2); margin: 0 auto 22px; position: relative; z-index: 1;
+      transition: var(--dur) var(--ease);
+    }
+    .process-step:hover .process-num {
+      background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #06080e;
+      border-color: transparent; box-shadow: 0 14px 36px rgba(212,175,95,0.28); transform: scale(1.08);
+    }
+    .process-step-title { font-size: 1.2rem; color: var(--text); margin-bottom: 12px; }
+    .process-step-desc { font-size: 14px; color: var(--text2); line-height: 1.75; max-width: 200px; margin: 0 auto; }
+
+    /* ══ STATS ══ */
+    .stats { padding: 110px 0; }
+    .stats-inner {
+      border-radius: var(--radius-xl); border: 1px solid var(--border);
+      background: radial-gradient(ellipse at center, rgba(212,175,95,0.06), transparent 70%), var(--surface);
+      padding: 80px 64px; text-align: center;
+    }
+    @media (max-width: 600px) { .stats-inner { padding: 54px 24px; } }
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 40px; margin-top: 56px; }
+    @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2,1fr); } }
+    .stat-num {
+      font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5.5vw, 4.5rem); font-weight: 900;
+      background: linear-gradient(135deg, var(--text) 0%, var(--gold2) 55%, var(--teal2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1; margin-bottom: 12px;
+    }
+    .stat-label { font-size: 14px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; }
+
+    /* ══ TESTIMONIALS ══ */
+    .testimonials { padding: 130px 0; background: var(--bg2); border-top: 1px solid var(--border); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 64px; }
+    @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+    .testimonial-card {
+      border-radius: var(--radius-md); border: 1px solid var(--border);
+      background: var(--surface); padding: 36px 32px; transition: var(--dur) var(--ease);
+    }
+    .testimonial-card:hover { border-color: var(--border-gold); transform: translateY(-7px); box-shadow: var(--shadow-md); }
+    .testimonial-stars { color: var(--gold2); font-size: 15px; letter-spacing: 2px; margin-bottom: 20px; }
+    .testimonial-text { font-size: 16px; color: var(--text2); line-height: 1.85; font-style: italic; }
+    .testimonial-author { margin-top: 26px; }
+    .testimonial-name { font-size: 16px; font-weight: 700; color: var(--text); }
+    .testimonial-loc { font-size: 13.5px; color: var(--text3); margin-top: 3px; }
+
+    /* ══ FAQ ══ */
+    .faq { padding: 110px 0; }
+    .faq-inner { max-width: 820px; margin: 0 auto; }
+    .faq-list { margin-top: 56px; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--surface); overflow: hidden; transition: border-color 0.3s; }
+    .faq-item.open { border-color: var(--border-gold); }
+    .faq-q {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; padding: 24px 28px; text-align: left;
+      font-size: 16px; font-weight: 600; color: var(--text);
+      cursor: pointer; transition: color 0.3s; background: transparent; border: none;
+    }
+    .faq-item.open .faq-q { color: var(--gold2); }
+    .faq-icon {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: var(--text3); transition: var(--dur) var(--ease);
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(212,175,95,0.12); color: var(--gold2); border-color: var(--border-gold); }
+    .faq-a {
+      max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s;
+      padding: 0 28px; font-size: 15px; color: var(--text2); line-height: 1.85;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding: 0 28px 26px; }
+
+    /* ══ TEAM ══ */
+    .team {
+      padding: 130px 0;
+      background: radial-gradient(ellipse 75% 55% at 80% 30%, rgba(212,175,95,0.06), transparent 55%),
+        radial-gradient(ellipse 55% 45% at 10% 70%, rgba(64,206,196,0.05), transparent 50%), var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-top: 68px; max-width: 920px; margin-left: auto; margin-right: auto; }
+    @media (max-width: 680px) { .team-grid { grid-template-columns: 1fr; max-width: 440px; } }
+    .team-card {
+      border-radius: var(--radius-lg); border: 1px solid var(--border);
+      background: var(--surface); padding: 48px 40px; text-align: center;
+      position: relative; overflow: hidden; transition: var(--dur) var(--ease);
+    }
+    .team-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--teal2), var(--gold2)); opacity: 0; transition: opacity 0.4s;
+    }
+    .team-card:hover::before { opacity: 1; }
+    .team-card:hover { border-color: var(--border-gold); transform: translateY(-12px); box-shadow: var(--shadow-lg), var(--glow-gold); }
+    .team-avatar { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 28px; position: relative; display: flex; align-items: center; justify-content: center; }
+    .team-avatar-ring {
+      position: absolute; inset: -5px; border-radius: 50%;
+      background: conic-gradient(var(--gold), var(--teal2), var(--gold2), var(--gold));
+      z-index: 0; animation: spin 10s linear infinite;
+    }
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .team-avatar-inner {
+      position: relative; z-index: 1; width: 110px; height: 110px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--surface2), var(--bg2)); border: 3px solid var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--gold2); letter-spacing: 0.02em;
+    }
+    .team-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .team-role-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 999px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 6px;
+    }
+    .team-role-gold { background: rgba(212,175,95,0.12); border: 1px solid rgba(212,175,95,0.28); color: var(--gold2); }
+    .team-role-teal { background: rgba(64,206,196,0.10); border: 1px solid rgba(64,206,196,0.25); color: var(--teal2); }
+    .team-primary-label {
+      display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      background: linear-gradient(135deg, rgba(212,175,95,0.18), rgba(64,206,196,0.12));
+      border: 1px solid rgba(212,175,95,0.32); color: var(--gold3); margin-bottom: 20px;
+    }
+    .team-divider { width: 44px; height: 1.5px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 20px auto; }
+    .team-bio { font-size: 15px; color: var(--text2); line-height: 1.85; }
+    .team-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 20px; }
+    .team-badge {
+      padding: 5px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.03em;
+      border: 1px solid rgba(255,255,255,0.12); color: var(--text2); background: rgba(255,255,255,0.05);
+    }
+
+    /* ══ CONTACT ══ */
+    .contact { padding: 130px 0; background: var(--bg2); border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: start; }
+    @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 56px; } }
+    .contact-items { display: flex; flex-direction: column; gap: 14px; margin-top: 38px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 16px; padding: 18px 22px;
+      border-radius: var(--radius-md); border: 1px solid var(--border);
+      background: var(--surface); transition: var(--dur) var(--ease);
+    }
+    a.contact-item:hover { border-color: var(--border-gold); transform: translateX(7px); }
+    .contact-item-icon {
+      width: 46px; height: 46px; flex-shrink: 0; border-radius: 13px;
+      background: linear-gradient(135deg, rgba(212,175,95,0.14), rgba(64,206,196,0.09));
+      border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .contact-item-label { font-size: 11.5px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; }
+    .contact-item-val { font-size: 16px; font-weight: 600; color: var(--text); margin-top: 4px; }
+    .contact-form { border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--surface); padding: 44px 40px; box-shadow: var(--shadow-lg); }
+    .contact-form h3 { font-size: 2.2rem; color: var(--text); margin-bottom: 32px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .form-label { font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text3); }
+    .form-control {
+      width: 100%; padding: 14px 18px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03); color: var(--text);
+      font-family: 'Outfit', sans-serif; font-size: 14.5px; outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s; -webkit-appearance: none;
+    }
+    .form-control:focus { border-color: rgba(212,175,95,0.40); box-shadow: 0 0 0 4px rgba(212,175,95,0.08); }
+    .form-control::placeholder { color: var(--text4); }
+    select.form-control option { background: var(--surface2); color: var(--text); }
+
+    /* ══ FOOTER ══ */
+    .footer { padding: 80px 0 44px; border-top: 1px solid var(--border); }
+    .footer-grid { display: grid; grid-template-columns: 1.7fr 1fr 1fr 1.3fr; gap: 52px; margin-bottom: 56px; }
+    @media (max-width: 960px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-logo { display: flex; align-items: center; gap: 13px; margin-bottom: 18px; }
+    .footer-logo-mark {
+      width: 42px; height: 42px; border-radius: 11px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 800; color: #06080e;
+    }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--text); }
+    .footer-brand-sub { font-size: 11px; color: var(--text4); margin-top: 2px; }
+    .footer-tagline { font-size: 13.5px; color: var(--text3); line-height: 1.85; max-width: 270px; }
+    .footer-col-title { font-size: 12px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; color: var(--gold2); margin-bottom: 20px; }
+    .footer-link { display: block; font-size: 14px; color: var(--text3); margin-bottom: 12px; transition: color 0.25s; }
+    .footer-link:hover { color: var(--text); }
+    .footer-contact-item { font-size: 13px; color: var(--text3); margin-bottom: 11px; line-height: 1.55; }
+    .footer-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 30px; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+    .footer-copy { font-size: 13px; color: var(--text3); }
+
+    /* ══ FLOAT BUTTONS ══ */
+    .float-btns { position: fixed; bottom: 30px; right: 30px; z-index: 99; display: flex; flex-direction: column; gap: 12px; }
+    .float-btn {
+      width: 58px; height: 58px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4); transition: var(--dur) var(--ease);
+    }
+    .float-btn:hover { transform: translateY(-5px) scale(1.07); }
+    .float-btn-wa { background: linear-gradient(135deg, #25D366, #1daa54); box-shadow: 0 10px 32px rgba(37,211,102,0.38); }
+    .float-btn-sms { background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 10px 32px rgba(59,130,246,0.38); }
+
+    /* ══ ANIMATIONS ══ */
+    .fade-up { opacity: 0; transform: translateY(36px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+    .fade-left { opacity: 0; transform: translateX(-36px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+    .fade-right { opacity: 0; transform: translateX(36px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+    .fade-up.visible, .fade-left.visible, .fade-right.visible { opacity: 1; transform: none; }
+    .d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s}
+    .d4{transition-delay:.32s} .d5{transition-delay:.40s} .d6{transition-delay:.48s}
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 110px; right: 30px; padding: 16px 24px; border-radius: var(--radius-sm);
+      background: var(--surface2); border: 1px solid var(--border-gold);
+      color: var(--text); font-size: 14.5px; font-weight: 500; z-index: 200;
+      transform: translateY(20px); opacity: 0; transition: var(--dur) var(--ease); box-shadow: var(--shadow-md);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+  </style>
 </head>
 <body>
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-btn" aria-label="WhatsApp पर संपर्क करें">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
+
+  <!-- FLOAT BUTTONS -->
+  <div class="float-btns">
+    <a href="https://wa.me/17083076419" target="_blank" rel="noopener" class="float-btn float-btn-wa" aria-label="WhatsApp">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
     </a>
+    <a href="sms:+15056338209" class="float-btn float-btn-sms" aria-label="SMS">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+    </a>
+  </div>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#home" onclick="closeMobileMenu()">Home</a>
-        <a href="#products" onclick="closeMobileMenu()">Products</a>
-        <a href="#services" onclick="closeMobileMenu()">Services</a>
-        <a href="#process" onclick="closeMobileMenu()">Process</a>
-        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-        <button class="btn-primary mt-4" onclick="closeMobileMenu()"><span>Get Started</span></button>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="closeMobile()">✕</button>
+    <a class="nav-link" href="#home" onclick="closeMobile()">Home</a>
+    <a class="nav-link" href="#products" onclick="closeMobile()">Products</a>
+    <a class="nav-link" href="#services" onclick="closeMobile()">Services</a>
+    <a class="nav-link" href="#process" onclick="closeMobile()">Process</a>
+    <a class="nav-link" href="#team" onclick="closeMobile()">Team</a>
+    <a class="nav-link" href="#contact" onclick="closeMobile()">Contact</a>
+    <a href="#contact" onclick="closeMobile()" class="btn-gold" style="margin-top:10px">Start a Project</a>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#home" class="nav-logo">
+          <div class="nav-logo-mark">S</div>
+          <div>
+            <div class="nav-logo-name">Sierra Crown LLC</div>
+            <div class="nav-logo-sub">California, USA</div>
+          </div>
+        </a>
+        <div class="nav-links">
+          <a class="nav-link" href="#home">Home</a>
+          <a class="nav-link" href="#products">Products</a>
+          <a class="nav-link" href="#services">Services</a>
+          <a class="nav-link" href="#process">Process</a>
+          <a class="nav-link" href="#team">Team</a>
+          <a class="nav-link" href="#contact">Contact</a>
+        </div>
+        <a href="#contact" class="nav-cta">Get Started</a>
+        <button class="hamburger" onclick="openMobile()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
+  </nav>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[rgba(5,5,8,0.8)] border-b border-[var(--border)]">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent)] to-[#00b880] flex items-center justify-center">
-                    <span class="text-[var(--bg)] font-bold text-xl">S</span>
-                </div>
-                <span class="text-xl font-bold">SupplyKing</span>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div>
+          <div class="hero-eyebrow fade-up">
+            <span class="eyebrow-dot"></span>
+            U.S.-Based Brand &amp; E-commerce Partner
+          </div>
+          <h1 class="hero-title fade-up d1">
+            Trusted Brand<br>
+            Development<br>
+            <em>From Zero to Hero</em>
+          </h1>
+          <p class="hero-desc fade-up d2">
+            Sierra Crown LLC helps businesses launch, scale, and grow with product sourcing, digital marketing, brand strategy, wholesale support, and e-commerce systems built for real results.
+          </p>
+          <div class="hero-actions fade-up d3">
+            <a href="#contact" class="btn-gold">Start Your Project</a>
+            <a href="#services" class="btn-outline">Explore Services</a>
+          </div>
+          <div class="hero-stats fade-up d4">
+            <div class="hero-stat">
+              <div class="hero-stat-num">500<span>+</span></div>
+              <div class="hero-stat-label">Products</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">2,000<span>+</span></div>
+              <div class="hero-stat-label">Clients Served</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">100<span>+</span></div>
+              <div class="hero-stat-label">Countries</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-right d1">
+          <div class="hero-card-grid">
+            <div class="hero-card">
+              <span class="hero-card-icon">💻</span>
+              <div class="hero-card-title">Web Development</div>
+              <div class="hero-card-sub">Conversion-focused pages &amp; storefronts</div>
+            </div>
+            <div class="hero-card">
+              <span class="hero-card-icon">🛒</span>
+              <div class="hero-card-title">E-commerce Systems</div>
+              <div class="hero-card-sub">Shopify &amp; product flows built to sell</div>
+            </div>
+            <div class="hero-card">
+              <span class="hero-card-icon">📦</span>
+              <div class="hero-card-title">Product Sourcing</div>
+              <div class="hero-card-sub">Supply chain &amp; wholesale support</div>
+            </div>
+            <div class="hero-card">
+              <span class="hero-card-icon">📈</span>
+              <div class="hero-card-title">Growth Strategy</div>
+              <div class="hero-card-sub">Scale smarter with data-driven plans</div>
+            </div>
+          </div>
+          <div class="hero-info-strip">
+            <div class="hero-info-card">
+              <div class="hero-info-label">Location</div>
+              <div class="hero-info-val">📍 California, USA</div>
+            </div>
+            <div class="hero-info-card">
+              <div class="hero-info-label">Hours</div>
+              <div class="hero-info-val">⏰ Sat 9 AM – 4 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="products-header">
+        <div>
+          <div class="section-label fade-up">Our Solutions</div>
+          <h2 class="section-title fade-up d1">High-Demand <em>Product Categories</em></h2>
+        </div>
+        <div class="category-tabs fade-up d2" id="catTabs">
+          <button class="cat-btn active" data-cat="all">All</button>
+          <button class="cat-btn" data-cat="electronics">Electronics</button>
+          <button class="cat-btn" data-cat="wellness">Wellness</button>
+          <button class="cat-btn" data-cat="home">Home</button>
+        </div>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+      <div style="text-align:center;margin-top:44px" class="fade-up">
+        <a href="#contact" class="btn-gold">Request Full Catalog</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE -->
+  <section class="value-section">
+    <div class="container">
+      <div class="value-grid">
+        <div class="fade-left">
+          <div class="section-label">USA Development Partner</div>
+          <h2 class="section-title">From Idea<br><em>to Launch</em></h2>
+          <p class="section-desc" style="margin-bottom:0">
+            Whether starting fresh or scaling, Sierra Crown LLC provides the infrastructure, sourcing support, and growth strategy your brand needs to succeed.
+          </p>
+          <div class="value-features">
+            <div class="value-feat">
+              <div class="value-feat-icon">🎯</div>
+              <div>
+                <div class="value-feat-title">Product Strategy</div>
+                <div class="value-feat-desc">Identify products and positioning that resonate with your target market and drive real demand.</div>
+              </div>
+            </div>
+            <div class="value-feat">
+              <div class="value-feat-icon">💰</div>
+              <div>
+                <div class="value-feat-title">Margin Planning</div>
+                <div class="value-feat-desc">Build profitable offers with strong brand positioning and solid unit economics from day one.</div>
+              </div>
+            </div>
+            <div class="value-feat">
+              <div class="value-feat-icon">⚙️</div>
+              <div>
+                <div class="value-feat-title">Platform Setup</div>
+                <div class="value-feat-desc">Shopify, landing pages, funnels, and systems engineered to convert visitors into buyers.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-right">
+          <div class="steps-card">
+            <h3>What You Get</h3>
+            <div class="step-row">
+              <div class="step-num">1</div>
+              <div>
+                <div class="step-title">Product Recommendations</div>
+                <div class="step-desc">Curated ideas tailored to your store or brand niche.</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">2</div>
+              <div>
+                <div class="step-title">Supplier &amp; Sourcing Support</div>
+                <div class="step-desc">Reliable supply chain direction and product guidance.</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">3</div>
+              <div>
+                <div class="step-title">1-on-1 Guidance</div>
+                <div class="step-desc">Strategy support tailored exclusively to your business goals.</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">4</div>
+              <div>
+                <div class="step-title">Creative &amp; Funnel Assets</div>
+                <div class="step-desc">Launch-ready materials that look premium and are built to sell.</div>
+              </div>
+            </div>
+            <a href="#contact" class="btn-gold" style="width:100%;display:flex;justify-content:center;margin-top:30px">Book a Consultation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div style="max-width:660px">
+        <div class="section-label fade-up">Our Services</div>
+        <h2 class="section-title fade-up d1">End-to-End<br><em>Brand Support</em></h2>
+        <p class="section-desc fade-up d2">
+          Development, sourcing, branding, digital marketing, and performance systems built for modern e-commerce companies ready to grow.
+        </p>
+      </div>
+      <div class="services-grid" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="container">
+      <div style="text-align:center;max-width:620px;margin:0 auto">
+        <div class="section-label fade-up" style="justify-content:center">How It Works</div>
+        <h2 class="section-title fade-up d1" style="text-align:center">Simple <em>Growth Process</em></h2>
+        <p class="section-desc fade-up d2" style="margin:0 auto;text-align:center">
+          A streamlined way to launch, improve, or scale your brand with complete confidence and proven support.
+        </p>
+      </div>
+      <div class="process-steps" id="processSteps"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-inner fade-up">
+        <div class="section-label" style="justify-content:center">By the Numbers</div>
+        <h2 class="section-title" style="text-align:center">Proven <em>Track Record</em></h2>
+        <div class="stats-grid" id="statsGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div style="text-align:center;max-width:620px;margin:0 auto">
+        <div class="section-label fade-up" style="justify-content:center">Client Feedback</div>
+        <h2 class="section-title fade-up d1" style="text-align:center">Trusted by <em>Growing Brands</em></h2>
+      </div>
+      <div class="testimonials-grid" id="testimonialsGrid"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <div class="faq-inner">
+        <div class="section-label fade-up">FAQ</div>
+        <h2 class="section-title fade-up d1">Common <em>Questions</em></h2>
+        <div class="faq-list" id="faqList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team" id="team">
+    <div class="container">
+      <div style="text-align:center;max-width:640px;margin:0 auto">
+        <div class="section-label fade-up" style="justify-content:center">The People Behind the Brand</div>
+        <h2 class="section-title fade-up d1" style="text-align:center">Meet Our <em>Team</em></h2>
+        <p class="section-desc fade-up d2" style="margin:0 auto;text-align:center">
+          Driven by passion, powered by expertise — the founders building Sierra Crown LLC from the ground up.
+        </p>
+      </div>
+      <div class="team-grid">
+        <!-- Sneh Patel -->
+        <div class="team-card fade-up d1">
+          <div class="team-avatar">
+            <div class="team-avatar-ring"></div>
+            <div class="team-avatar-inner">SP</div>
+          </div>
+          <div class="team-name">Sneh Patel</div>
+          <div class="team-role-badge team-role-gold">⭐ Owner &amp; Co-Founder</div>
+          <div class="team-divider"></div>
+          <p class="team-bio">
+            Sneh is the visionary co-founder and owner behind Sierra Crown LLC, leading the company's mission to help brands launch, grow, and scale with integrity. With deep expertise in e-commerce, product sourcing, and the U.S. market, Sneh built Sierra Crown from the ground up — turning bold ideas into real, measurable results for hundreds of clients worldwide.
+          </p>
+          <div class="team-badges">
+            <span class="team-badge">Brand Strategy</span>
+            <span class="team-badge">E-commerce</span>
+            <span class="team-badge">Product Sourcing</span>
+            <span class="team-badge">Business Development</span>
+          </div>
+        </div>
+        <!-- Zeel Patel -->
+        <div class="team-card fade-up d2" style="border-color:rgba(64,206,196,0.2)">
+          <div class="team-avatar">
+            <div class="team-avatar-ring" style="animation-direction:reverse;background:conic-gradient(var(--teal),var(--gold2),var(--teal2),var(--teal))"></div>
+            <div class="team-avatar-inner" style="color:var(--teal2)">ZP</div>
+          </div>
+          <div class="team-name">Zeel Patel</div>
+          <div class="team-role-badge team-role-teal" style="margin-bottom:10px">🏆 CEO &amp; Co-Founder</div>
+          <div class="team-primary-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Primary Operations Lead
+          </div>
+          <div class="team-divider" style="background:linear-gradient(90deg,transparent,var(--teal2),transparent)"></div>
+          <p class="team-bio">
+            Zeel serves as CEO and Co-Founder of Sierra Crown LLC, driving the day-to-day operations, client partnerships, and strategic growth of the company. As the primary operations lead, Zeel oversees all major workflows — from client onboarding and fulfillment to marketing execution and business development. Their hands-on leadership and relentless focus on execution have been instrumental in scaling Sierra Crown's reach across 100+ countries.
+          </p>
+          <div class="team-badges">
+            <span class="team-badge">Operations</span>
+            <span class="team-badge">Growth Strategy</span>
+            <span class="team-badge">Digital Marketing</span>
+            <span class="team-badge">Client Success</span>
+            <span class="team-badge">Business Dev</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="fade-left">
+          <div class="section-label">Get In Touch</div>
+          <h2 class="section-title">Ready to <em>Build?</em></h2>
+          <p class="section-desc">
+            Connect with Sierra Crown LLC to discuss development, product sourcing, digital marketing, or launch strategy for your next growth phase.
+          </p>
+          <div class="contact-items">
+            <a href="https://wa.me/17083076419" target="_blank" class="contact-item">
+              <div class="contact-item-icon">📱</div>
+              <div>
+                <div class="contact-item-label">WhatsApp</div>
+                <div class="contact-item-val">+1 (708) 307-6419</div>
+              </div>
             </a>
-            
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#products" class="nav-link">Products</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#process" class="nav-link">Process</a>
-                <a href="#contact" class="nav-link">Contact</a>
+            <a href="sms:+15056338209" class="contact-item">
+              <div class="contact-item-icon">💬</div>
+              <div>
+                <div class="contact-item-label">Text Message</div>
+                <div class="contact-item-val">+1 (505) 633-8209</div>
+              </div>
+            </a>
+            <a href="mailto:sierracrowne@gmail.com" class="contact-item">
+              <div class="contact-item-icon">✉️</div>
+              <div>
+                <div class="contact-item-label">Email</div>
+                <div class="contact-item-val">sierracrowne@gmail.com</div>
+              </div>
+            </a>
+            <div class="contact-item">
+              <div class="contact-item-icon">📍</div>
+              <div>
+                <div class="contact-item-label">Location</div>
+                <div class="contact-item-val">California, United States</div>
+              </div>
             </div>
-            
-            <div class="hidden md:flex items-center gap-4">
-                <a href="#contact" class="btn-primary"><span>Start Business</span></a>
+            <div class="contact-item">
+              <div class="contact-item-icon">⏰</div>
+              <div>
+                <div class="contact-item-label">Operating Hours</div>
+                <div class="contact-item-val">Saturday 9:00 AM – 4:00 PM</div>
+              </div>
             </div>
-            
-            <button class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5" onclick="toggleMobileMenu()" aria-label="Menu">
-                <span class="w-6 h-0.5 bg-white transition-all" id="menuLine1"></span>
-                <span class="w-6 h-0.5 bg-white transition-all" id="menuLine2"></span>
-                <span class="w-6 h-0.5 bg-white transition-all" id="menuLine3"></span>
+          </div>
+        </div>
+        <div class="fade-right">
+          <form class="contact-form" id="contactForm" novalidate>
+            <h3>Send a Message</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Full Name *</label>
+                <input type="text" class="form-control" placeholder="Your name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address *</label>
+                <input type="email" class="form-control" placeholder="you@email.com" name="email" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Phone / WhatsApp</label>
+                <input type="tel" class="form-control" placeholder="+1 (555) 000-0000" name="phone" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Business / Brand Name</label>
+                <input type="text" class="form-control" placeholder="Your brand" name="brand" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Service Needed *</label>
+              <select class="form-control" name="service" required>
+                <option value="">— Select a service —</option>
+                <option>Brand Development</option>
+                <option>Product Sourcing</option>
+                <option>E-commerce Systems</option>
+                <option>Digital Marketing</option>
+                <option>Growth Strategy</option>
+                <option>Wholesale Products</option>
+                <option>Other / Multiple</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tell Us About Your Project *</label>
+              <textarea class="form-control" rows="5" placeholder="Describe your goals, current stage, and how we can help…" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn-gold" style="width:100%;justify-content:center;font-size:15px;padding:18px">
+              Send Message →
             </button>
+          </form>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="min-h-screen relative flex items-center pt-20">
-        <div class="hero-bg">
-            <div class="gradient-orb orb-1"></div>
-            <div class="gradient-orb orb-2"></div>
-            <div class="gradient-orb orb-3"></div>
-            <div class="grid-pattern"></div>
-            <canvas id="particles-canvas"></canvas>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div class="reveal">
-                        <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6">
-                            Bulk Products at Wholesale Prices
-                        </span>
-                    </div>
-                    
-                    <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 reveal delay-1">
-                        Zero se Hero<br>
-                        <span class="text-[var(--accent)] glow-text">E-commerce</span> Tak
-                    </h1>
-                    
-                    <p class="text-xl text-[var(--muted)] mb-8 max-w-lg reveal delay-2">
-                        Bulk products, shipping, ads, aur complete guidance - सब कुछ एक जगह। आप बस sell करो, बाकी सब हम संभालेंगे।
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-4 reveal delay-3">
-                        <a href="#contact" class="btn-primary"><span>Contact Now</span></a>
-                        <a href="#products" class="btn-secondary">View Products</a>
-                    </div>
-                    
-                    <div class="flex items-center gap-8 mt-12 reveal delay-4">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-[var(--accent)]">500+</div>
-                            <div class="text-sm text-[var(--muted)]">Products</div>
-                        </div>
-                        <div class="w-px h-12 bg-[var(--border)]"></div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-[var(--accent-gold)]">2000+</div>
-                            <div class="text-sm text-[var(--muted)]">Sellers</div>
-                        </div>
-                        <div class="w-px h-12 bg-[var(--border)]"></div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold">Pan India</div>
-                            <div class="text-sm text-[var(--muted)]">Delivery</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="relative reveal-right">
-                    <div class="relative">
-                        <!-- Floating Product Cards -->
-                        <div class="absolute -top-10 -left-10 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-2xl animate-bounce" style="animation-duration: 3s;">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent)] to-[#00b880] flex items-center justify-center text-2xl">📦</div>
-                                <div>
-                                    <div class="font-semibold">Bulk Order</div>
-                                    <div class="text-sm text-[var(--accent)]">Min 40% OFF</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="absolute -bottom-5 -right-5 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 shadow-2xl animate-bounce" style="animation-duration: 4s; animation-delay: 0.5s;">
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent-gold)] to-[#ff9500] flex items-center justify-center text-2xl">🚚</div>
-                                <div>
-                                    <div class="font-semibold">Free Shipping</div>
-                                    <div class="text-sm text-[var(--accent-gold)]">Door to Door</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Main Hero Image -->
-                        <div class="bg-gradient-to-br from-[var(--card)] to-[var(--bg-secondary)] rounded-3xl p-8 border border-[var(--border)]">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="aspect-square rounded-2xl bg-gradient-to-br from-[rgba(0,229,160,0.2)] to-transparent flex items-center justify-center text-5xl hover:scale-110 transition-transform cursor-pointer">👕</div>
-                                <div class="aspect-square rounded-2xl bg-gradient-to-br from-[rgba(255,200,87,0.2)] to-transparent flex items-center justify-center text-5xl hover:scale-110 transition-transform cursor-pointer">👟</div>
-                                <div class="aspect-square rounded-2xl bg-gradient-to-br from-[rgba(255,100,100,0.2)] to-transparent flex items-center justify-center text-5xl hover:scale-110 transition-transform cursor-pointer">⌚</div>
-                                <div class="aspect-square rounded-2xl bg-gradient-to-br from-[rgba(100,150,255,0.2)] to-transparent flex items-center justify-center text-5xl hover:scale-110 transition-transform cursor-pointer">🎒</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Marquee Section -->
-    <div class="marquee-container py-4">
-        <div class="marquee-content">
-            <span class="marquee-item">Electronics</span>
-            <span class="marquee-item">Fashion</span>
-            <span class="marquee-item">Home Decor</span>
-            <span class="marquee-item">Beauty Products</span>
-            <span class="marquee-item">Mobile Accessories</span>
-            <span class="marquee-item">Kids Toys</span>
-            <span class="marquee-item">Kitchen Items</span>
-            <span class="marquee-item">Sports Equipment</span>
-            <span class="marquee-item">Electronics</span>
-            <span class="marquee-item">Fashion</span>
-            <span class="marquee-item">Home Decor</span>
-            <span class="marquee-item">Beauty Products</span>
-            <span class="marquee-item">Mobile Accessories</span>
-            <span class="marquee-item">Kids Toys</span>
-            <span class="marquee-item">Kitchen Items</span>
-            <span class="marquee-item">Sports Equipment</span>
-        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Products Section -->
-    <section id="products" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(255,200,87,0.1)] border border-[rgba(255,200,87,0.3)] text-[var(--accent-gold)] text-sm font-medium mb-6 reveal">
-                    Product Catalog
-                </span>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">Hot Selling Products</h2>
-                <p class="text-xl text-[var(--muted)] max-w-2xl mx-auto reveal delay-2">
-                    500+ products available at wholesale prices. New sellers को बताते हैं क्या sell करना है।
-                </p>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-mark">S</div>
+            <div>
+              <div class="footer-brand-name">Sierra Crown LLC</div>
+              <div class="footer-brand-sub">California, USA</div>
             </div>
-            
-            <!-- Category Tabs -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12 reveal delay-3">
-                <button class="category-tab active px-6 py-3 rounded-full bg-[var(--accent)] text-[var(--bg)] font-semibold transition-all" data-category="all">All Products</button>
-                <button class="category-tab px-6 py-3 rounded-full bg-[var(--card)] border border-[var(--border)] font-semibold transition-all hover:border-[var(--accent)]" data-category="electronics">Electronics</button>
-                <button class="category-tab px-6 py-3 rounded-full bg-[var(--card)] border border-[var(--border)] font-semibold transition-all hover:border-[var(--accent)]" data-category="fashion">Fashion</button>
-                <button class="category-tab px-6 py-3 rounded-full bg-[var(--card)] border border-[var(--border)] font-semibold transition-all hover:border-[var(--accent)]" data-category="home">Home</button>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="productsGrid">
-                <!-- Products will be rendered by JS -->
-            </div>
-            
-            <div class="text-center mt-12 reveal">
-                <a href="#contact" class="btn-primary"><span>View Full Catalog</span></a>
-            </div>
+          </div>
+          <p class="footer-tagline">Trusted brand development from zero to hero — product sourcing, digital marketing, and e-commerce growth systems.</p>
         </div>
-    </section>
-
-    <!-- Zero to Hero Section -->
-    <section class="py-24 relative bg-gradient-to-b from-[var(--bg)] via-[var(--bg-secondary)] to-[var(--bg)]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="reveal-left">
-                    <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6">
-                        For New Sellers
-                    </span>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                        Zero se Hero<br>
-                        <span class="text-[var(--accent-gold)]">Program</span>
-                    </h2>
-                    <p class="text-xl text-[var(--muted)] mb-8">
-                        E-commerce में entry करनी है पर पता नहीं क्या sell करें? हम बताएंगे। Product selection से लेकर profit margin तक, सब कुछ गाइड करेंगे।
-                    </p>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4 p-4 bg-[var(--card)] rounded-xl border border-[var(--border)] hover:border-[var(--accent)] transition-all">
-                            <div class="w-10 h-10 rounded-lg bg-[rgba(0,229,160,0.2)] flex items-center justify-center shrink-0">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-                                    <path d="M9 11l3 3L22 4"></path>
-                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Product Research</h4>
-                                <p class="text-[var(--muted)] text-sm">Trending products जो actually sell होते हैं</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-4 p-4 bg-[var(--card)] rounded-xl border border-[var(--border)] hover:border-[var(--accent)] transition-all">
-                            <div class="w-10 h-10 rounded-lg bg-[rgba(255,200,87,0.2)] flex items-center justify-center shrink-0">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2">
-                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Profit Margin Guide</h4>
-                                <p class="text-[var(--muted)] text-sm">कहाँ से buy करें, कितने में sell करें</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-4 p-4 bg-[var(--card)] rounded-xl border border-[var(--border)] hover:border-[var(--accent)] transition-all">
-                            <div class="w-10 h-10 rounded-lg bg-[rgba(100,150,255,0.2)] flex items-center justify-center shrink-0">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6496ff" stroke-width="2">
-                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-1">Platform Selection</h4>
-                                <p class="text-[var(--muted)] text-sm">Amazon, Flipkart, Meesho - कौन सा best for you</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="reveal-right">
-                    <div class="relative">
-                        <div class="bg-[var(--card)] border border-[var(--border)] rounded-3xl p-8 relative overflow-hidden">
-                            <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[var(--accent)] to-transparent opacity-20 rounded-bl-full"></div>
-                            
-                            <h3 class="text-2xl font-bold mb-6">What You Get</h3>
-                            
-                            <div class="space-y-6">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-full bg-[rgba(0,229,160,0.2)] flex items-center justify-center">
-                                        <span class="text-xl">1</span>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold">Winning Products List</div>
-                                        <div class="text-sm text-[var(--muted)]">50+ trending products with margins</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-full bg-[rgba(255,200,87,0.2)] flex items-center justify-center">
-                                        <span class="text-xl">2</span>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold">Supplier Contacts</div>
-                                        <div class="text-sm text-[var(--muted)]">Direct manufacturer connections</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-full bg-[rgba(100,150,255,0.2)] flex items-center justify-center">
-                                        <span class="text-xl">3</span>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold">1-on-1 Mentorship</div>
-                                        <div class="text-sm text-[var(--muted)]">Personal guidance calls</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-full bg-[rgba(255,100,150,0.2)] flex items-center justify-center">
-                                        <span class="text-xl">4</span>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold">Ad Templates</div>
-                                        <div class="text-sm text-[var(--muted)]">Ready-to-use marketing creatives</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <a href="#contact" class="btn-primary w-full mt-8 block text-center"><span>Join Program</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <a class="footer-link" href="#home">Home</a>
+          <a class="footer-link" href="#products">Products</a>
+          <a class="footer-link" href="#services">Services</a>
+          <a class="footer-link" href="#process">Process</a>
+          <a class="footer-link" href="#contact">Contact</a>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6 reveal">
-                    Our Services
-                </span>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">End-to-End Solutions</h2>
-                <p class="text-xl text-[var(--muted)] max-w-2xl mx-auto reveal delay-2">
-                    Product से लेकर delivery तक, हर step पर हम साथ हैं
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="service-card reveal delay-1">
-                    <div class="icon-wrapper">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <path d="M16 10a4 4 0 0 1-8 0"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Bulk Products</h3>
-                    <p class="text-[var(--muted)] mb-4">500+ products at wholesale prices. Fashion, electronics, home decor - सब कुछ available है।</p>
-                    <div class="text-[var(--accent)] font-semibold">Min 40% Margin</div>
-                </div>
-                
-                <div class="service-card reveal delay-2">
-                    <div class="icon-wrapper">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-                            <rect x="1" y="3" width="15" height="13"></rect>
-                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Door to Door Shipping</h3>
-                    <p class="text-[var(--muted)] mb-4">Order base shipping - जितना order उतनी shipping। Pan India delivery available।</p>
-                    <div class="text-[var(--accent-gold)] font-semibold">Starting Rs 30/order</div>
-                </div>
-                
-                <div class="service-card reveal delay-3">
-                    <div class="icon-wrapper">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Ads Management</h3>
-                    <p class="text-[var(--muted)] mb-4">Amazon Ads, Flipkart Ads, Facebook Ads - हम चला देंगे। ROI focused campaigns।</p>
-                    <div class="text-[var(--accent)] font-semibold">Performance Based</div>
-                </div>
-                
-                <div class="service-card reveal delay-4">
-                    <div class="icon-wrapper">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">GST Invoice</h3>
-                    <p class="text-[var(--muted)] mb-4">Proper GST invoice मिलेगा। Sell करने में कोई problem नहीं।</p>
-                    <div class="text-[var(--accent-gold)] font-semibold">All Compliant</div>
-                </div>
-                
-                <div class="service-card reveal delay-5">
-                    <div class="icon-wrapper">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Product Guidance</h3>
-                    <p class="text-[var(--muted)] mb-4">नया seller हो? क्या sell करना है, कैसे sell करना है - सब बताएंगे।</p>
-                    <div class="text-[var(--accent)] font-semibold">Free Consultation</div>
-                </div>
-                
-                <div class="service-card reveal delay-6">
-                    <div class="icon-wrapper">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">24/7 Support</h3>
-                    <p class="text-[var(--muted)] mb-4">कोई भी problem? WhatsApp पर message करो, तुरंत reply मिलेगा।</p>
-                    <div class="text-[var(--accent-gold)] font-semibold">Always Available</div>
-                </div>
-            </div>
+        <div>
+          <div class="footer-col-title">Services</div>
+          <a class="footer-link" href="#services">Brand Development</a>
+          <a class="footer-link" href="#services">Product Sourcing</a>
+          <a class="footer-link" href="#services">E-commerce Systems</a>
+          <a class="footer-link" href="#services">Digital Marketing</a>
+          <a class="footer-link" href="#services">Growth Strategy</a>
         </div>
-    </section>
-
-    <!-- Process Section -->
-    <section id="process" class="py-24 relative bg-gradient-to-b from-[var(--bg)] via-[var(--bg-secondary)] to-[var(--bg)]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(255,200,87,0.1)] border border-[rgba(255,200,87,0.3)] text-[var(--accent-gold)] text-sm font-medium mb-6 reveal">
-                    How It Works
-                </span>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">Simple Process</h2>
-                <p class="text-xl text-[var(--muted)] max-w-2xl mx-auto reveal delay-2">
-                    4 easy steps में शुरू करो अपना e-commerce business
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="step-card reveal delay-1">
-                    <div class="step-number">1</div>
-                    <h3 class="text-xl font-bold mb-3">Contact Us</h3>
-                    <p class="text-[var(--muted)]">WhatsApp या form से contact करो। बताओ क्या चाहिए।</p>
-                </div>
-                
-                <div class="step-card reveal delay-2">
-                    <div class="step-number">2</div>
-                    <h3 class="text-xl font-bold mb-3">Select Products</h3>
-                    <p class="text-[var(--muted)]">Catalog देखो, products choose करो। Guidance चाहिए तो बोलो।</p>
-                </div>
-                
-                <div class="step-card reveal delay-3">
-                    <div class="step-number">3</div>
-                    <h3 class="text-xl font-bold mb-3">Place Order</h3>
-                    <p class="text-[var(--muted)]">Bulk order करो। Shipping details दो। Payment करो।</p>
-                </div>
-                
-                <div class="step-card reveal delay-4">
-                    <div class="step-number">4</div>
-                    <h3 class="text-xl font-bold mb-3">Start Selling</h3>
-                    <p class="text-[var(--muted)]">Products receive करो और sell करना शुरू करो।</p>
-                </div>
-            </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-contact-item">📱 WhatsApp: +1 (708) 307-6419</div>
+          <div class="footer-contact-item">💬 Text: +1 (505) 633-8209</div>
+          <div class="footer-contact-item">✉️ <a href="mailto:sierracrowne@gmail.com" style="color:inherit">sierracrowne@gmail.com</a></div>
+          <div class="footer-contact-item">📍 California, United States</div>
+          <div class="footer-contact-item">⏰ Saturday 9 AM – 4 PM</div>
         </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="bg-gradient-to-r from-[var(--card)] to-[var(--bg-secondary)] rounded-3xl border border-[var(--border)] p-12">
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="stat-item reveal delay-1">
-                        <div class="stat-number" data-target="500">0</div>
-                        <div class="text-lg text-[var(--muted)] mt-2">Products Available</div>
-                    </div>
-                    <div class="stat-item reveal delay-2">
-                        <div class="stat-number" data-target="2000">0</div>
-                        <div class="text-lg text-[var(--muted)] mt-2">Active Sellers</div>
-                    </div>
-                    <div class="stat-item reveal delay-3">
-                        <div class="stat-number" data-target="50000">0</div>
-                        <div class="text-lg text-[var(--muted)] mt-2">Orders Shipped</div>
-                    </div>
-                    <div class="stat-item reveal delay-4">
-                        <div class="stat-number" data-target="28">0</div>
-                        <div class="text-lg text-[var(--muted)] mt-2">States Covered</div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Sierra Crown LLC. All rights reserved.</div>
+        <div class="footer-copy" style="display:flex;align-items:center;gap:10px">
+          <span style="color:var(--gold2)">●</span> California, USA
         </div>
-    </section>
+      </div>
+    </div>
+  </footer>
 
-    <!-- Testimonials Section -->
-    <section class="py-24 relative bg-gradient-to-b from-[var(--bg)] via-[var(--bg-secondary)] to-[var(--bg)]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6 reveal">
-                    Success Stories
-                </span>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">Happy Sellers</h2>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* ══════ DATA ══════ */
+    const products = [
+      { name: 'AI Translation Earbuds',       cat: 'electronics', price: '$79',  mrp: '$149', badge: '47% OFF', icon: '🎧' },
+      { name: 'Smart Wearable Device',         cat: 'electronics', price: '$99',  mrp: '$179', badge: '45% OFF', icon: '⌚' },
+      { name: 'Heated Knee Wellness Device',   cat: 'wellness',    price: '$99',  mrp: '$159', badge: '38% OFF', icon: '🦵' },
+      { name: 'Cervical Support Pillow',        cat: 'home',        price: '$69',  mrp: '$119', badge: '42% OFF', icon: '🛏️' },
+      { name: 'Neck & Shoulder Massager',       cat: 'wellness',    price: '$79',  mrp: '$129', badge: '39% OFF', icon: '💆' },
+      { name: 'Portable Home Comfort Product',  cat: 'home',        price: '$59',  mrp: '$99',  badge: '40% OFF', icon: '🏠' },
+      { name: 'Consumer Electronics Accessory', cat: 'electronics', price: '$49',  mrp: '$89',  badge: '45% OFF', icon: '🔌' },
+      { name: 'Lifestyle Product Bundle',        cat: 'home',        price: '$89',  mrp: '$149', badge: '40% OFF', icon: '📦' },
+    ];
+
+    const services = [
+      { icon: '📦', title: 'Wholesale Products',        desc: 'Access scalable product categories across electronics, wellness, lifestyle, and home brands — curated for modern markets.', tag: 'Growth-Focused Catalog' },
+      { icon: '🚚', title: 'U.S. Fulfillment Strategy', desc: 'Warehousing direction, shipping flow, order planning, and delivery experience support tailored to your operations.',         tag: 'Operational Efficiency' },
+      { icon: '✍️', title: 'Brand Development',         desc: 'Storefronts, offers, messaging, landing pages, and conversion-focused customer flows that build brand equity and trust.',    tag: 'Built for Conversion' },
+      { icon: '🧩', title: 'Store & System Setup',       desc: 'Organize your business backend so your brand launches clean, operates efficiently, and scales without bottlenecks.',       tag: 'Professional Structure' },
+      { icon: '📊', title: 'Growth Guidance',            desc: 'Strategic direction on what to launch, how to price, and where to focus — all built around your specific business goals.',  tag: 'Consultation Available' },
+      { icon: '💬', title: 'Direct Support',             desc: 'Fast, responsive communication for product questions, business needs, and project planning whenever you need it.',          tag: 'Responsive Team' },
+    ];
+
+    const processStepsData = [
+      { n: '1', title: 'Contact Us',       desc: 'Tell us about your brand, your goals, and the support you need to move forward.' },
+      { n: '2', title: 'Choose Direction', desc: 'We identify products, systems, and services aligned with your growth plan.' },
+      { n: '3', title: 'Build & Launch',   desc: 'We structure the setup, execution, and assets needed to bring your brand to market.' },
+      { n: '4', title: 'Scale',            desc: 'Grow with stronger systems, better offers, and a brand built for the long term.' },
+    ];
+
+    const statsData = [
+      { val: 500,  suffix: '+', label: 'Products Supported' },
+      { val: 2000, suffix: '+', label: 'Clients Served' },
+      { val: 100,  suffix: '+', label: 'Countries Reached' },
+      { val: 6,    suffix: '+', label: 'Years Experience' },
+    ];
+
+    const testimonials = [
+      { name: 'Michael R.', loc: 'California', text: 'Sierra Crown helped us organize our offer, product direction, and site structure much faster than we expected. Highly professional team.' },
+      { name: 'Ashley P.',  loc: 'Texas',      text: 'Very professional communication and a strong understanding of e-commerce. The guidance was practical and incredibly easy to implement.' },
+      { name: 'Daniel S.',  loc: 'Florida',    text: 'A great partner for brand development and launch support. They truly understand the U.S. market and exactly what converts.' },
+    ];
+
+    const faqs = [
+      { q: 'What does Sierra Crown LLC do?',           a: 'We provide brand development, product sourcing, digital marketing, wholesale support, and e-commerce growth systems for businesses of all sizes — from new launches to scaling brands.' },
+      { q: 'Do you work with new brands?',              a: 'Yes. We work with both brand new businesses and growing companies that need help with launch strategy, business structure, and execution.' },
+      { q: 'Do you help with product selection?',       a: 'Absolutely. We help identify product categories, positioning opportunities, and market fit aligned with your brand and target audience.' },
+      { q: 'Do you support Shopify and landing pages?', a: 'Yes. We support store structure, landing page direction, offer strategy, and conversion-focused setup for Shopify and beyond.' },
+      { q: 'Are you U.S.-based?',                       a: 'Yes. Sierra Crown LLC is headquartered in California, USA and proudly serves both U.S. and international clients across 100+ countries.' },
+    ];
+
+    const tickerItems = ['Web Development','Shopify Solutions','Product Sourcing','Digital Marketing','Brand Growth','Landing Pages','Wholesale Supply','Operations Support','Performance Marketing','E-commerce Strategy','Brand Consulting','Fulfillment Strategy'];
+
+    /* ══════ RENDER ══════ */
+    function renderProducts(cat) {
+      const g = document.getElementById('productsGrid');
+      const filtered = (!cat || cat === 'all') ? products : products.filter(p => p.cat === cat);
+      g.innerHTML = filtered.map((p, i) => `
+        <div class="product-card fade-up d${(i % 4) + 1}">
+          <div class="product-visual">
+            <span style="font-size:64px">${p.icon}</span>
+            <div class="product-badge">${p.badge}</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">${p.name}</div>
+            <div class="product-price">
+              <div class="product-price-main">${p.price}</div>
+              <div class="product-price-mrp">${p.mrp}</div>
             </div>
-            
-            <div class="grid md:grid-cols-3 gap-6" id="testimonialsGrid">
-                <!-- Testimonials will be rendered by JS -->
-            </div>
+            <a href="#contact" class="product-btn">Request Details</a>
+          </div>
         </div>
-    </section>
+      `).join('');
+      observeAll();
+    }
 
-    <!-- FAQ Section -->
-    <section class="py-24 relative">
-        <div class="max-w-3xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="inline-block px-4 py-2 rounded-full bg-[rgba(255,200,87,0.1)] border border-[rgba(255,200,87,0.3)] text-[var(--accent-gold)] text-sm font-medium mb-6 reveal">
-                    FAQ
-                </span>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 reveal delay-1">Common Questions</h2>
-            </div>
-            
-            <div class="space-y-4" id="faqContainer">
-                <!-- FAQ items will be rendered by JS -->
-            </div>
+    function renderServices() {
+      document.getElementById('servicesGrid').innerHTML = services.map((s, i) => `
+        <div class="service-card fade-up d${(i % 3) + 1}">
+          <div class="service-icon">${s.icon}</div>
+          <h3 class="service-title">${s.title}</h3>
+          <p class="service-desc">${s.desc}</p>
+          <div class="service-tag">${s.tag} →</div>
         </div>
-    </section>
+      `).join('');
+      observeAll();
+    }
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 relative bg-gradient-to-b from-[var(--bg)] via-[var(--bg-secondary)] to-[var(--bg)]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="reveal-left">
-                    <span class="inline-block px-4 py-2 rounded-full bg-[rgba(0,229,160,0.1)] border border-[rgba(0,229,160,0.3)] text-[var(--accent)] text-sm font-medium mb-6">
-                        Get In Touch
-                    </span>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                        Ready to Start?
-                    </h2>
-                    <p class="text-xl text-[var(--muted)] mb-8">
-                        अभी contact करो और अपना e-commerce journey शुरू करो। Zero investment से लेकर full setup तक, हम साथ हैं।
-                    </p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 rounded-xl bg-[rgba(0,229,160,0.2)] flex items-center justify-center">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--accent)">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="text-[var(--muted)] text-sm">Phone / WhatsApp</div>
-                                <div class="text-xl font-semibold">+91 98765 43210</div>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 rounded-xl bg-[rgba(255,200,87,0.2)] flex items-center justify-center">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--accent-gold)">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                    <polyline points="22,6 12,13 2,6" fill="none" stroke="var(--accent-gold)" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="text-[var(--muted)] text-sm">Email</div>
-                                <div class="text-xl font-semibold">contact@supplyking.com</div>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 rounded-xl bg-[rgba(100,150,255,0.2)] flex items-center justify-center">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#6496ff">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <div class="text-[var(--muted)] text-sm">Location</div>
-                                <div class="text-xl font-semibold">Delhi, India</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="reveal-right">
-                    <form class="bg-[var(--card)] border border-[var(--border)] rounded-3xl p-8" id="contactForm">
-                        <h3 class="text-2xl font-bold mb-6">Send Message</h3>
-                        
-                        <div class="space-y-4">
-                            <div>
-                                <input type="text" placeholder="Your Name" class="form-input" required>
-                            </div>
-                            <div>
-                                <input type="tel" placeholder="Phone Number" class="form-input" required>
-                            </div>
-                            <div>
-                                <input type="email" placeholder="Email (Optional)" class="form-input">
-                            </div>
-                            <div>
-                                <select class="form-input" required>
-                                    <option value="">Select Interest</option>
-                                    <option value="bulk">Bulk Products</option>
-                                    <option value="shipping">Shipping Service</option>
-                                    <option value="ads">Ads Management</option>
-                                    <option value="guidance">Product Guidance</option>
-                                    <option value="all">All Services</option>
-                                </select>
-                            </div>
-                            <div>
-                                <textarea placeholder="Your Message" rows="4" class="form-input" required></textarea>
-                            </div>
-                            <button type="submit" class="btn-primary w-full"><span>Send Message</span></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    function renderProcess() {
+      document.getElementById('processSteps').innerHTML = processStepsData.map((s, i) => `
+        <div class="process-step fade-up d${i + 1}">
+          <div class="process-num">${s.n}</div>
+          <h3 class="process-step-title">${s.title}</h3>
+          <p class="process-step-desc">${s.desc}</p>
         </div>
-    </section>
+      `).join('');
+      observeAll();
+    }
 
-    <!-- Footer -->
-    <footer class="py-12 border-t border-[var(--border)]">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8 mb-12">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent)] to-[#00b880] flex items-center justify-center">
-                            <span class="text-[var(--bg)] font-bold text-xl">S</span>
-                        </div>
-                        <span class="text-xl font-bold">SupplyKing</span>
-                    </div>
-                    <p class="text-[var(--muted)]">Zero se Hero tak - Complete e-commerce solutions for new sellers.</p>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-[var(--muted)]">
-                        <li><a href="#home" class="hover:text-[var(--accent)] transition-colors">Home</a></li>
-                        <li><a href="#products" class="hover:text-[var(--accent)] transition-colors">Products</a></li>
-                        <li><a href="#services" class="hover:text-[var(--accent)] transition-colors">Services</a></li>
-                        <li><a href="#contact" class="hover:text-[var(--accent)] transition-colors">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4">Services</h4>
-                    <ul class="space-y-2 text-[var(--muted)]">
-                        <li>Bulk Products</li>
-                        <li>Door to Door Shipping</li>
-                        <li>Ads Management</li>
-                        <li>Product Guidance</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4">Connect</h4>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded-xl bg-[var(--card)] border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-all" aria-label="Instagram">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--muted)">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-xl bg-[var(--card)] border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-all" aria-label="Facebook">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--muted)">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-xl bg-[var(--card)] border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-all" aria-label="YouTube">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--muted)">
-                                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border-t border-[var(--border)] pt-8 text-center text-[var(--muted)]">
-                <p>&copy; 2024 SupplyKing. All rights reserved.</p>
-            </div>
+    function renderStats() {
+      document.getElementById('statsGrid').innerHTML = statsData.map(s => `
+        <div class="stat-card">
+          <div class="stat-num" data-target="${s.val}" data-suffix="${s.suffix}">0</div>
+          <div class="stat-label">${s.label}</div>
         </div>
-    </footer>
+      `).join('');
+      animateStats();
+    }
 
-    <script>
-        // Data
-        const products = [
-            { id: 1, name: 'Smart Watch Pro', category: 'electronics', price: '299', mrp: '999', discount: '70%', emoji: '⌚' },
-            { id: 2, name: 'Wireless Earbuds', category: 'electronics', price: '199', mrp: '599', discount: '67%', emoji: '🎧' },
-            { id: 3, name: 'Men Casual T-Shirt', category: 'fashion', price: '149', mrp: '399', discount: '63%', emoji: '👕' },
-            { id: 4, name: 'Women Kurti Set', category: 'fashion', price: '299', mrp: '799', discount: '63%', emoji: '👗' },
-            { id: 5, name: 'LED Table Lamp', category: 'home', price: '249', mrp: '699', discount: '64%', emoji: '💡' },
-            { id: 6, name: 'Bluetooth Speaker', category: 'electronics', price: '349', mrp: '999', discount: '65%', emoji: '🔊' },
-            { id: 7, name: 'Kids Toy Set', category: 'home', price: '199', mrp: '499', discount: '60%', emoji: '🧸' },
-            { id: 8, name: 'Sports Shoes', category: 'fashion', price: '449', mrp: '1299', discount: '65%', emoji: '👟' },
-        ];
+    function renderTestimonials() {
+      document.getElementById('testimonialsGrid').innerHTML = testimonials.map((t, i) => `
+        <div class="testimonial-card fade-up d${i + 1}">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"${t.text}"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-name">${t.name}</div>
+            <div class="testimonial-loc">${t.loc}</div>
+          </div>
+        </div>
+      `).join('');
+      observeAll();
+    }
 
-        const testimonials = [
-            { name: 'Rahul Sharma', location: 'Mumbai', text: 'Zero se start kiya, ab monthly 2 lakh revenue। Products quality बहुत अच्छी है।', rating: 5 },
-            { name: 'Priya Patel', location: 'Ahmedabad', text: 'Shipping service बहुत smooth है। Customer को next day delivery मिल जाती है।', rating: 5 },
-            { name: 'Amit Kumar', location: 'Delhi', text: 'Ads management ने मेरे sales 3x कर दिए। ROI based work करते हैं।', rating: 5 },
-        ];
+    function renderFaq() {
+      document.getElementById('faqList').innerHTML = faqs.map((f, i) => `
+        <div class="faq-item fade-up d${(i % 3) + 1}">
+          <button class="faq-q" type="button" onclick="toggleFaq(this)">
+            <span>${f.q}</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">${f.a}</div>
+        </div>
+      `).join('');
+      observeAll();
+    }
 
-        const faqs = [
-            { question: 'Minimum order quantity कितनी है?', answer: 'Different products के लिए different MOQ है। Generally 10-50 pieces से start होता है। WhatsApp पर पूछ सकते हो specific product के लिए।' },
-            { question: 'Shipping कितने दिनों में होती है?', answer: 'Metro cities में 2-3 days, other cities में 4-5 days। Express shipping भी available है additional cost पर।' },
-            { question: 'Payment mode क्या है?', answer: 'Bank transfer, UPI, Cash on pickup available है। Bulk orders के लिए partial advance लेते हैं।' },
-            { question: 'GST invoice मिलेगा?', answer: 'हाँ, proper tax invoice मिलेगा। Business के लिए आप input credit भी claim कर सकते हो।' },
-            { question: 'Product guidance free है?', answer: 'हाँ, अगर आप हमसे products ले रहे हो तो guidance completely free है।' },
-        ];
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      document.querySelectorAll('.faq-item.open').forEach(el => { if (el !== item) el.classList.remove('open'); });
+      item.classList.toggle('open');
+    }
 
-        // Render Products
-        function renderProducts(category = 'all') {
-            const grid = document.getElementById('productsGrid');
-            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
-            
-            grid.innerHTML = filtered.map((product, index) => `
-                <div class="product-card reveal delay-${(index % 4) + 1}">
-                    <div class="product-image">
-                        <span class="discount-badge">${product.discount} OFF</span>
-                        <span style="filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));">${product.emoji}</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="font-bold text-lg mb-2">${product.name}</h3>
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="text-2xl font-bold text-[var(--accent)]">Rs ${product.price}</span>
-                            <span class="text-[var(--muted)] line-through">Rs ${product.mrp}</span>
-                        </div>
-                        <a href="#contact" class="btn-secondary w-full text-center block text-sm py-3">Get Quote</a>
-                    </div>
-                </div>
-            `).join('');
-            
-            observeElements();
-        }
+    function renderTicker() {
+      const doubled = [...tickerItems, ...tickerItems];
+      document.getElementById('tickerTrack').innerHTML = doubled.map(t => `
+        <div class="ticker-item"><span class="ticker-dot"></span>${t}</div>
+      `).join('');
+    }
 
-        // Render Testimonials
-        function renderTestimonials() {
-            const grid = document.getElementById('testimonialsGrid');
-            grid.innerHTML = testimonials.map((t, index) => `
-                <div class="testimonial-card reveal delay-${index + 1}">
-                    <div class="flex gap-1 mb-4">
-                        ${Array(t.rating).fill('<svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>').join('')}
-                    </div>
-                    <p class="text-[var(--muted)] mb-4">"${t.text}"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--accent)] to-[var(--accent-gold)] flex items-center justify-center font-bold text-[var(--bg)]">
-                            ${t.name[0]}
-                        </div>
-                        <div>
-                            <div class="font-semibold">${t.name}</div>
-                            <div class="text-sm text-[var(--muted)]">${t.location}</div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Render FAQ
-        function renderFAQ() {
-            const container = document.getElementById('faqContainer');
-            container.innerHTML = faqs.map((faq, index) => `
-                <div class="faq-item reveal delay-${(index % 3) + 1}">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
-                        <span class="font-semibold">${faq.question}</span>
-                        <div class="faq-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-[var(--muted)]">${faq.answer}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Toggle FAQ
-        function toggleFAQ(element) {
-            const item = element.parentElement;
-            item.classList.toggle('active');
-        }
-
-        // Category Tabs
-        document.querySelectorAll('.category-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.category-tab').forEach(t => {
-                    t.classList.remove('active', 'bg-[var(--accent)]', 'text-[var(--bg)]');
-                    t.classList.add('bg-[var(--card)]');
-                });
-                this.classList.add('active', 'bg-[var(--accent)]', 'text-[var(--bg)]');
-                this.classList.remove('bg-[var(--card)]');
-                renderProducts(this.dataset.category);
-            });
+    function animateStats() {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const el = e.target;
+          const target = +el.dataset.target;
+          const suffix = el.dataset.suffix || '+';
+          let cur = 0;
+          const step = Math.max(1, Math.ceil(target / 72));
+          const timer = setInterval(() => {
+            cur = Math.min(cur + step, target);
+            el.textContent = cur.toLocaleString() + suffix;
+            if (cur >= target) clearInterval(timer);
+          }, 16);
+          obs.unobserve(el);
         });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('.stat-num[data-target]').forEach(n => obs.observe(n));
+    }
 
-        // Mobile Menu
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-        }
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
 
-        function closeMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.remove('active');
-        }
+    function observeAll() {
+      document.querySelectorAll('.fade-up:not(.visible), .fade-left:not(.visible), .fade-right:not(.visible)').forEach(el => observer.observe(el));
+    }
 
-        // Scroll Reveal
-        function observeElements() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    /* ══════ INIT ══════ */
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+    });
 
-            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
-                observer.observe(el);
-            });
-        }
+    document.getElementById('catTabs').addEventListener('click', e => {
+      const btn = e.target.closest('.cat-btn');
+      if (!btn) return;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProducts(btn.dataset.cat);
+    });
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const target = parseInt(entry.target.dataset.target);
-                        let current = 0;
-                        const increment = target / 60;
-                        const timer = setInterval(() => {
-                            current += increment;
-                            if (current >= target) {
-                                entry.target.textContent = target.toLocaleString() + '+';
-                                clearInterval(timer);
-                            } else {
-                                entry.target.textContent = Math.floor(current).toLocaleString();
-                            }
-                        }, 30);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      showToast('✅ Message sent! Sierra Crown LLC will reach out soon.');
+      this.reset();
+    });
 
-            counters.forEach(counter => observer.observe(counter));
-        }
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 4200);
+    }
 
-        // Particles
-        function initParticles() {
-            const canvas = document.getElementById('particles-canvas');
-            const ctx = canvas.getContext('2d');
-            
-            function resize() {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-            }
-            resize();
-            window.addEventListener('resize', resize);
+    function openMobile() { document.getElementById('mobileMenu').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow = ''; }
 
-            const particles = [];
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 1,
-                    speedX: (Math.random() - 0.5) * 0.5,
-                    speedY: (Math.random() - 0.5) * 0.5,
-                    opacity: Math.random() * 0.5 + 0.2
-                });
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                particles.forEach(p => {
-                    p.x += p.speedX;
-                    p.y += p.speedY;
-                    
-                    if (p.x < 0) p.x = canvas.width;
-                    if (p.x > canvas.width) p.x = 0;
-                    if (p.y < 0) p.y = canvas.height;
-                    if (p.y > canvas.height) p.y = 0;
-                    
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(0, 229, 160, ${p.opacity})`;
-                    ctx.fill();
-                });
-
-                // Draw connections
-                particles.forEach((p1, i) => {
-                    particles.slice(i + 1).forEach(p2 => {
-                        const dx = p1.x - p2.x;
-                        const dy = p1.y - p2.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (distance < 150) {
-                            ctx.beginPath();
-                            ctx.moveTo(p1.x, p1.y);
-                            ctx.lineTo(p2.x, p2.y);
-                            ctx.strokeStyle = `rgba(0, 229, 160, ${0.1 * (1 - distance / 150)})`;
-                            ctx.stroke();
-                        }
-                    });
-                });
-
-                requestAnimationFrame(animate);
-            }
-
-            animate();
-        }
-
-        // Form Submit
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you! हम जल्द ही आपसे contact करेंगे।');
-            this.reset();
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            renderProducts();
-            renderTestimonials();
-            renderFAQ();
-            observeElements();
-            animateCounters();
-            initParticles();
-        });
-    </script>
+    // Boot
+    renderTicker();
+    renderProducts('all');
+    renderServices();
+    renderProcess();
+    renderStats();
+    renderTestimonials();
+    renderFaq();
+    observeAll();
+  </script>
 </body>
 </html>
