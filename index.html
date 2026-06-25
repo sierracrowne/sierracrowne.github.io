@@ -308,6 +308,34 @@
     }
     .product-btn:hover { background: var(--gold); color: #06080e; border-color: var(--gold); }
 
+    /* ══ BRANDS ══ */
+    .brands { padding: 130px 0; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .brands-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 64px; }
+    @media (max-width: 1100px) { .brands-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 600px) { .brands-grid { grid-template-columns: 1fr; } }
+    .brand-card {
+      border-radius: var(--radius-md); border: 1px solid var(--border);
+      background: var(--surface); padding: 36px 28px; text-align: center;
+      transition: var(--dur) var(--ease); position: relative; overflow: hidden;
+    }
+    .brand-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2.5px;
+      background: linear-gradient(90deg, var(--gold), var(--teal2));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease);
+    }
+    .brand-card:hover::after { transform: scaleX(1); }
+    .brand-card:hover { border-color: var(--border-gold); transform: translateY(-9px); box-shadow: var(--shadow-lg); }
+    .brand-mark {
+      width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center; font-size: 30px;
+      background: linear-gradient(135deg, rgba(212,175,95,0.14), rgba(64,206,196,0.09));
+      border: 1px solid var(--border);
+    }
+    .brand-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .brand-cat { font-size: 11.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gold2); margin-bottom: 14px; }
+    .brand-desc { font-size: 14px; color: var(--text2); line-height: 1.75; }
+    .brand-card.more { display: flex; flex-direction: column; align-items: center; justify-content: center; border-style: dashed; border-color: var(--border-gold); background: rgba(212,175,95,0.03); }
+
     /* ══ VALUE ══ */
     .value-section {
       padding: 110px 0;
@@ -611,6 +639,7 @@
     <button class="mobile-close" onclick="closeMobile()">✕</button>
     <a class="nav-link" href="#home" onclick="closeMobile()">Home</a>
     <a class="nav-link" href="#products" onclick="closeMobile()">Products</a>
+    <a class="nav-link" href="#brands" onclick="closeMobile()">Brands</a>
     <a class="nav-link" href="#services" onclick="closeMobile()">Services</a>
     <a class="nav-link" href="#process" onclick="closeMobile()">Process</a>
     <a class="nav-link" href="#team" onclick="closeMobile()">Team</a>
@@ -632,6 +661,7 @@
         <div class="nav-links">
           <a class="nav-link" href="#home">Home</a>
           <a class="nav-link" href="#products">Products</a>
+          <a class="nav-link" href="#brands">Brands</a>
           <a class="nav-link" href="#services">Services</a>
           <a class="nav-link" href="#process">Process</a>
           <a class="nav-link" href="#team">Team</a>
@@ -744,6 +774,20 @@
       <div style="text-align:center;margin-top:44px" class="fade-up">
         <a href="#contact" class="btn-gold">Request Full Catalog</a>
       </div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section class="brands" id="brands">
+    <div class="container">
+      <div style="text-align:center;max-width:640px;margin:0 auto">
+        <div class="section-label fade-up" style="justify-content:center">Our Portfolio</div>
+        <h2 class="section-title fade-up d1" style="text-align:center">Brands Under <em>Sierra Crown</em></h2>
+        <p class="section-desc fade-up d2" style="margin:0 auto;text-align:center">
+          Sierra Crown LLC owns and operates a growing portfolio of consumer brands across electronics, wellness, and gourmet food — each built with the same standard of quality and care.
+        </p>
+      </div>
+      <div class="brands-grid" id="brandsGrid"></div>
     </div>
   </section>
 
@@ -1047,6 +1091,7 @@
           <div class="footer-col-title">Quick Links</div>
           <a class="footer-link" href="#home">Home</a>
           <a class="footer-link" href="#products">Products</a>
+          <a class="footer-link" href="#brands">Brands</a>
           <a class="footer-link" href="#services">Services</a>
           <a class="footer-link" href="#process">Process</a>
           <a class="footer-link" href="#contact">Contact</a>
@@ -1091,6 +1136,13 @@
       { name: 'Portable Home Comfort Product',  cat: 'home',        price: '$59',  mrp: '$99',  badge: '40% OFF', icon: '🏠' },
       { name: 'Consumer Electronics Accessory', cat: 'electronics', price: '$49',  mrp: '$89',  badge: '45% OFF', icon: '🔌' },
       { name: 'Lifestyle Product Bundle',        cat: 'home',        price: '$89',  mrp: '$149', badge: '40% OFF', icon: '📦' },
+    ];
+
+    const brands = [
+      { name: 'VerboBuds',     cat: 'Electronics & Audio',  icon: '🎧', desc: 'Smart earbuds and audio accessories engineered for everyday clarity and seamless connectivity.' },
+      { name: 'Venus Comfort', cat: 'Wellness & Comfort',   icon: '🧘', desc: 'Comfort-first wellness products designed to support relaxation, recovery, and everyday ease.' },
+      { name: 'Nuvo Olive Oil',cat: 'Gourmet & Lifestyle',  icon: '🫒', desc: 'Premium, small-batch olive oil bringing quality and flavor to the modern kitchen.' },
+      { name: 'More Brands',   cat: 'Coming Soon',          icon: '✨', desc: 'Sierra Crown LLC is always building. New brands are in development — stay tuned.', more: true },
     ];
 
     const services = [
@@ -1150,6 +1202,18 @@
             </div>
             <a href="#contact" class="product-btn">Request Details</a>
           </div>
+        </div>
+      `).join('');
+      observeAll();
+    }
+
+    function renderBrands() {
+      document.getElementById('brandsGrid').innerHTML = brands.map((b, i) => `
+        <div class="brand-card fade-up d${(i % 4) + 1}${b.more ? ' more' : ''}">
+          <div class="brand-mark">${b.icon}</div>
+          <div class="brand-name">${b.name}</div>
+          <div class="brand-cat">${b.cat}</div>
+          <div class="brand-desc">${b.desc}</div>
         </div>
       `).join('');
       observeAll();
@@ -1288,6 +1352,7 @@
     // Boot
     renderTicker();
     renderProducts('all');
+    renderBrands();
     renderServices();
     renderProcess();
     renderStats();
